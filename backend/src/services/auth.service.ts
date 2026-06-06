@@ -1,7 +1,6 @@
 import bcrypt from "bcryptjs";
-import { PrismaClient, Prisma, Role } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { Prisma, Role } from "@prisma/client";
+import { prisma } from "./../lib/prisma.js";
 
 export async function registerUser(data: {
   username: string;
