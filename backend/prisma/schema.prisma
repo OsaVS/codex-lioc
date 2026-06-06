@@ -62,7 +62,9 @@ model FillingStation {
   tanks          Tank[]
   deliveries     Delivery[]
   managers       FillingStationManager[]
+  inventory      StationInventory[]
   refuelRequests RefuelRequest[] @relation("DestinationStation")
+  productRequests ProductRequest[]
 }
 
 model Tank {
@@ -79,6 +81,7 @@ model Tank {
   station   FillingStation @relation(fields: [stationId], references: [id])
   type      FuelType?      @relation(fields: [typeId], references: [id])
   sensors   Sensor[]
+  pumps     Pump[]
 }
 
 model Sensor {
@@ -157,6 +160,67 @@ enum Role {
   MANAGER
   STAFF
   CUSTOMER
+}
+
+model Pump {
+  id     Int   @id @default(autoincrement())
+  tankId Int
+  name   String?
+
+  tank   Tank  @relation(fields: [tankId], references: [id])
+  readings PumpReading[]
+}
+
+model PumpReading {
+  id        Int      @id @default(autoincrement())
+  pumpId    Int
+  timestamp DateTime
+  value     Float?
+
+  pump Pump @relation(fields: [pumpId], references: [id])
+}
+
+model StationInventory {
+  id             Int      @id @default(autoincrement())
+  stationId      Int
+  productId      Int
+  batchNumber    String?
+  expiryDate     DateTime?
+  quantityOnHand Float?
+
+  station FillingStation @relation(fields: [stationId], references: [id])
+  product Product        @relation(fields: [productId], references: [id])
+}
+
+model Product {
+  id         Int      @id @default(autoincrement())
+  barcode    String?
+  name       String?
+  categoryId Int?
+  price      Float?
+
+  category ProductCategory? @relation(fields: [categoryId], references: [id])
+  inventory StationInventory[]
+  requests  ProductRequest[]
+}
+
+model ProductCategory {
+  id   Int    @id @default(autoincrement())
+  name String?
+
+  products Product[]
+}
+
+model ProductRequest {
+  id                Int      @id @default(autoincrement())
+  productId         Int
+  stationId         Int
+  requestedQuantity Float?
+  status            String?
+  requestedDate     DateTime?
+
+  product Product @relation(fields: [productId], references: [id])
+  station FillingStation @relation(fields: [stationId], references: [id])
 }
 
 
