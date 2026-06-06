@@ -10,7 +10,7 @@ const PORT = process.env.PORT ? Number(process.env.PORT) : 3000;
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/auth", authRouter);
+app.use("/api/auth", authRouter);
 
 app.get("/", (req: Request, res: Response) => {
     res.send("Hello from Express + TypeScript!");
