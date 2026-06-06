@@ -1,6 +1,4 @@
-import { PrismaClient, Prisma } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "./../lib/prisma.js";
 
 export async function tankHistory(tankId: number, days = 7) {
     try {
