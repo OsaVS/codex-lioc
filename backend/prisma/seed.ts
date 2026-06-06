@@ -1,5 +1,5 @@
 // prisma/seed.ts
-import { PrismaClient, RequestStatus, Role } from "@prisma/client";
+import { PrismaClient, Role } from "@prisma/client";
 import { hash } from "bcryptjs";
 
 // Initialize PrismaClient without any options
@@ -225,6 +225,80 @@ async function main() {
     });
 
     // ─────────────────────────────────────────────
+    // PRODUCTS, CATEGORIES & STATION INVENTORY
+    // ─────────────────────────────────────────────
+    const category = await prisma.productCategory.upsert({
+      where: { id: 1 },
+      update: {},
+      create: { name: "General" },
+    });
+
+    const product = await prisma.product.upsert({
+      where: { id: 1 },
+      update: {},
+      create: {
+        barcode: "000111222",
+        name: "Engine Oil",
+        categoryId: category.id,
+        price: 2500.0,
+      },
+    });
+
+    await prisma.stationInventory.upsert({
+      where: { id: 1 },
+      update: {},
+      create: {
+        stationId: station.id,
+        productId: product.id,
+        batchNumber: "BATCH-001",
+        expiryDate: new Date("2028-01-01T00:00:00Z"),
+        quantityOnHand: 150,
+      },
+    });
+
+    // ─────────────────────────────────────────────
+    // PUMPS & PUMP READINGS
+    // ─────────────────────────────────────────────
+    const pump1 = await prisma.pump.upsert({
+      where: { id: 1 },
+      update: {},
+      create: {
+        tankId: tank.id,
+        name: "Pump 1",
+      },
+    });
+
+    const pump2 = await prisma.pump.upsert({
+      where: { id: 2 },
+      update: {},
+      create: {
+        tankId: tank2.id,
+        name: "Pump 2",
+      },
+    });
+
+    await prisma.pumpReading.create({
+      data: {
+        pumpId: pump1.id,
+        timestamp: new Date(),
+        value: 123.45,
+      },
+    });
+
+    // ─────────────────────────────────────────────
+    // PRODUCT REQUEST (sample)
+    // ─────────────────────────────────────────────
+    await prisma.productRequest.create({
+      data: {
+        productId: product.id,
+        stationId: station.id,
+        requestedQuantity: 50,
+        status: "PENDING",
+        requestedDate: new Date(),
+      },
+    });
+
+    // ─────────────────────────────────────────────
     // REFUEL REQUEST
     // ─────────────────────────────────────────────
     const request = await prisma.refuelRequest.create({
@@ -234,7 +308,7 @@ async function main() {
         typeId: petrol.id,
         requestedUserId: customer.id,
         decisionUserId: manager.id,
-        status: RequestStatus.PENDING,
+        status: "PENDING",
       },
     });
 
@@ -264,3 +338,6 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
+
+// declare process for environments where @types/node isn't loaded during TS checks
+declare const process: any;
