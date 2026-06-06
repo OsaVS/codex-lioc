@@ -63,7 +63,15 @@ export async function registerUser(data: {
         }
       }
 
-      return user;
+      // fetch any manager relations to include stationId / regionId in the response
+      const stationRel = await tx.fillingStationManager.findFirst({ where: { userId: user.id }, select: { stationId: true } });
+      const regionRel = await tx.regionalDistributionManager.findUnique({ where: { userId: user.id }, select: { regionId: true } });
+
+      return {
+        ...user,
+        stationId: stationRel?.stationId ?? null,
+        regionId: regionRel?.regionId ?? null,
+      };
     });
 
     return created;
@@ -101,5 +109,16 @@ export async function authenticateUser(usernameOrEmail: string, password: string
   const ok = await bcrypt.compare(password, user.password);
   if (!ok) return null;
 
-  return { id: user.id, username: user.username, email: user.email, role: user.role };
+  // include stationId and regionId if present
+  const stationRel = await prisma.fillingStationManager.findFirst({ where: { userId: user.id }, select: { stationId: true } });
+  const regionRel = await prisma.regionalDistributionManager.findUnique({ where: { userId: user.id }, select: { regionId: true } });
+
+  return {
+    id: user.id,
+    username: user.username,
+    email: user.email,
+    role: user.role,
+    stationId: stationRel?.stationId ?? null,
+    regionId: regionRel?.regionId ?? null,
+  };
 }
