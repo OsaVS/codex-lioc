@@ -52,9 +52,9 @@ export default function StationMap({ stations }: Props) {
   };
 
   return (
-    <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 h-96 z-0 relative">
-      <h3 className="font-bold text-lg mb-4 text-blue-900 border-b pb-2">Regional Station Map</h3>
-      <div className="h-72 w-full rounded-lg overflow-hidden border border-gray-200">
+    <div className="glass-card p-4 rounded-2xl border border-slate-800/80 h-96 z-0 relative shadow-lg">
+      <h3 className="font-bold text-lg mb-4 text-slate-100 border-b border-slate-800 pb-2">Regional Station Map</h3>
+      <div className="h-72 w-full rounded-xl overflow-hidden border border-slate-800/80">
         <MapContainer center={center} zoom={11} style={{ height: '100%', width: '100%' }}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

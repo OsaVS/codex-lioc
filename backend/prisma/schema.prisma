@@ -1,0 +1,226 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Models generated from ER diagram
+
+model User {
+  id          Int      @id @default(autoincrement())
+  username    String   @unique
+  name        String?
+  password    String?  @map("pwd")
+  email       String   @unique
+  role        Role?
+  mobile      String?
+
+  // relations
+  refuelRequests  RefuelRequest[] @relation("RequestedBy")
+  decisionsMade   RefuelRequest[] @relation("DecisionBy")
+  stationManaged  FillingStationManager[]
+  regionalManaged RegionalDistributionManager?
+}
+
+model Region {
+  id    Int    @id @default(autoincrement())
+  name  String?
+
+  stations  FillingStation[]
+  regionalManagers RegionalDistributionManager[]
+}
+
+model FuelType {
+  id            Int     @id @default(autoincrement())
+  name          String?
+  pricePerLitre Float?
+  octaneRating  Float?
+
+  tanks         Tank[]
+  refuelRequests RefuelRequest[]
+}
+
+model FillingStation {
+  id             Int     @id @default(autoincrement())
+  name           String?
+  address        String?
+  ownerName      String?
+  ownerMobile    String?
+  regionId       Int?
+  longitude      Float?
+  latitude       Float?
+
+  region         Region? @relation(fields: [regionId], references: [id])
+  tanks          Tank[]
+  deliveries     Delivery[]
+  managers       FillingStationManager[]
+  inventory      StationInventory[]
+  refuelRequests RefuelRequest[] @relation("DestinationStation")
+  productRequests ProductRequest[]
+}
+
+model Tank {
+  id                        Int      @id @default(autoincrement())
+  stationId                 Int
+  installationDate          DateTime?
+  typeId                   Int?
+  crossSectionalArea       Float?
+  height                   Float?
+  isActive                 Boolean? @default(true)
+  automaticRefuelRequest   Boolean? @default(false)
+  threshold                Float?
+
+  station   FillingStation @relation(fields: [stationId], references: [id])
+  type      FuelType?      @relation(fields: [typeId], references: [id])
+  sensors   Sensor[]
+  pumps     Pump[]
+}
+
+model Sensor {
+  id                   Int     @id @default(autoincrement())
+  tankId               Int
+  measurementMethod    String?
+  isBottomToOilLevel   Boolean?
+  isActive             Boolean? @default(true)
+
+  tank   Tank   @relation(fields: [tankId], references: [id])
+  levels Level[]
+}
+
+model Level {
+  sensorId     Int
+  measuredTime DateTime
+  measurement  Float?
+
+  sensor Sensor @relation(fields: [sensorId], references: [id])
+
+  @@id([sensorId, measuredTime])
+}
+
+model RefuelRequest {
+  id                 Int            @id @default(autoincrement())
+  requestedDate      DateTime?
+  destinationStationId Int?
+  typeId             Int?
+  requestedUserId    Int?
+  status             RequestStatus @default(PENDING)
+  decisionUserId     Int?
+
+  destinationStation FillingStation? @relation("DestinationStation", fields: [destinationStationId], references: [id])
+  type               FuelType?       @relation(fields: [typeId], references: [id])
+  requestedBy        User?           @relation("RequestedBy", fields: [requestedUserId], references: [id])
+  decisionBy         User?           @relation("DecisionBy", fields: [decisionUserId], references: [id])
+  deliveries         Delivery[]
+}
+
+model Delivery {
+  id         Int  @id @default(autoincrement())
+  stationId  Int?
+  requestId  Int?
+  note       String?
+
+  station FillingStation? @relation(fields: [stationId], references: [id])
+  request RefuelRequest?   @relation(fields: [requestId], references: [id])
+}
+
+model FillingStationManager {
+  userId   Int
+  stationId Int
+
+  user    User @relation(fields: [userId], references: [id])
+  station FillingStation @relation(fields: [stationId], references: [id])
+
+  @@id([userId, stationId])
+}
+
+model RegionalDistributionManager {
+  userId   Int @id
+  regionId Int
+
+  user   User   @relation(fields: [userId], references: [id])
+  region Region @relation(fields: [regionId], references: [id])
+}
+
+enum RequestStatus {
+  PENDING
+  SUCCESS
+  REJECTED
+}
+
+enum Role {
+  ADMIN
+  MANAGER
+  STAFF
+  CUSTOMER
+}
+
+model Pump {
+  id     Int   @id @default(autoincrement())
+  tankId Int
+  name   String?
+
+  tank   Tank  @relation(fields: [tankId], references: [id])
+  readings PumpReading[]
+}
+
+model PumpReading {
+  id        Int      @id @default(autoincrement())
+  pumpId    Int
+  timestamp DateTime
+  value     Float?
+
+  pump Pump @relation(fields: [pumpId], references: [id])
+}
+
+model StationInventory {
+  id             Int      @id @default(autoincrement())
+  stationId      Int
+  productId      Int
+  batchNumber    String?
+  expiryDate     DateTime?
+  quantityOnHand Float?
+
+  station FillingStation @relation(fields: [stationId], references: [id])
+  product Product        @relation(fields: [productId], references: [id])
+}
+
+model Product {
+  id         Int      @id @default(autoincrement())
+  barcode    String?
+  name       String?
+  categoryId Int?
+  price      Float?
+
+  category ProductCategory? @relation(fields: [categoryId], references: [id])
+  inventory StationInventory[]
+  requests  ProductRequest[]
+}
+
+model ProductCategory {
+  id   Int    @id @default(autoincrement())
+  name String?
+
+  products Product[]
+}
+
+model ProductRequest {
+  id                Int      @id @default(autoincrement())
+  productId         Int
+  stationId         Int
+  requestedQuantity Float?
+  status            String?
+  requestedDate     DateTime?
+
+  product Product @relation(fields: [productId], references: [id])
+  station FillingStation @relation(fields: [stationId], references: [id])
+}
+
+
