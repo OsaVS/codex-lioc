@@ -1,12 +1,17 @@
-name: PR Checks
+name: PR Checks Backend Files
 
 on:
   pull_request:
     branches: [main]
+    paths:
+      - 'backend/**'  
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
 
     steps:
       - uses: actions/checkout@v4
@@ -15,7 +20,7 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install dependencies
+      - name: Install backend dependencies
         run: npm ci
 
       - name: Run tests
@@ -24,5 +29,5 @@ jobs:
       - name: Generate Prisma client
         run: npm run prisma:generate
 
-      - name: Build (TypeScript compile)
+      - name: Build backend (TypeScript compile)
         run: npm run build
