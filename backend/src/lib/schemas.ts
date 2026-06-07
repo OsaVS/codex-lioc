@@ -35,3 +35,11 @@ export const pumpReadingSchema = z.object({
   readingValue: z.coerce.number().nonnegative(),
 });
 
+export const refuelRequestSchema = z.object({
+  requestedDate: z.coerce.date(),
+  destinationStationId: z.coerce.number().int().positive(),
+  typeId: z.coerce.number().int().positive(),
+  requestedUserId: z.coerce.number().int().positive(),
+});
+
+
