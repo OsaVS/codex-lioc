@@ -7,53 +7,93 @@ interface Props {
 export default function TankLevelCard({ tank }: Props) {
   const percentage = Math.round((tank.currentLevel / tank.capacity) * 100);
   
-  let color = 'bg-green-500';
-  if (percentage < 30) color = 'bg-yellow-500';
-  if (percentage < 15) color = 'bg-red-500';
+  // Set wave color based on levels
+  let liquidColor = '#0284c7'; // Sky 600
+  let liquidColorDark = '#0369a1'; // Sky 700
+  let badgeColor = 'bg-sky-500/10 text-sky-400 border-sky-500/20';
+  let glowColor = 'shadow-[0_0_15px_rgba(3,105,161,0.2)]';
+
+  if (percentage < 30) {
+    liquidColor = '#f59e0b'; // Amber 500
+    liquidColorDark = '#d97706'; // Amber 600
+    badgeColor = 'bg-amber-500/10 text-amber-400 border-amber-500/20';
+    glowColor = 'shadow-[0_0_15px_rgba(217,119,6,0.35)]';
+  }
+  if (percentage < 15) {
+    liquidColor = '#ef4444'; // Red 500
+    liquidColorDark = '#dc2626'; // Red 600
+    badgeColor = 'bg-red-500/10 text-red-400 border-red-500/20 animate-pulse';
+    glowColor = 'shadow-[0_0_20px_rgba(220,38,38,0.5)]';
+  }
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow">
-      <div className="flex justify-between items-center mb-4">
-        <h3 className="font-bold text-gray-800 text-lg">{tank.fuelType}</h3>
-        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${tank.isActive ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'}`}>
-          {tank.isActive ? 'Active' : 'Inactive'}
-        </span>
-      </div>
-      
-      <div className="text-gray-500 text-sm mb-4">ID: {tank.tankId}</div>
+    <div className={`glass-card glass-card-hover p-6 rounded-2xl relative overflow-hidden flex flex-col justify-between h-80 ${glowColor}`}>
+      {/* Decorative gradient overlay */}
+      <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-full blur-2xl pointer-events-none" />
 
-      <div className="relative pt-1">
-        <div className="flex items-center justify-between mb-2">
+      <div>
+        <div className="flex justify-between items-start mb-2">
           <div>
-            <span className="text-xs font-semibold inline-block py-1 uppercase text-gray-600">
-              Capacity Level
-            </span>
+            <h3 className="font-bold text-slate-100 text-xl tracking-tight">{tank.fuelType}</h3>
+            <span className="text-slate-500 text-xs font-mono">ID: {tank.tankId}</span>
           </div>
-          <div className="text-right">
-            <span className="text-sm font-bold inline-block text-gray-800">
-              {percentage}%
-            </span>
+          <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold border ${badgeColor}`}>
+            {percentage < 15 ? 'Critical' : percentage < 30 ? 'Low Stock' : 'Normal'}
+          </span>
+        </div>
+
+        <div className="flex items-center gap-6 mt-4">
+          {/* Animated 3D-like Tank Cylinder */}
+          <div 
+            className="cylinder-tank shrink-0" 
+            style={{ 
+              '--liquid-level': `${percentage}%`,
+              '--liquid-color': liquidColor,
+              '--liquid-color-dark': liquidColorDark,
+            } as React.CSSProperties}
+          >
+            <div className="tank-liquid">
+              <div className="wave-back" />
+              <div className="wave-front" />
+            </div>
+            {/* Center percentage label inside the cylinder */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+              <span className="text-white text-base font-extrabold drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] font-mono">
+                {percentage}%
+              </span>
+            </div>
+          </div>
+
+          {/* Stats info */}
+          <div className="flex flex-col justify-center gap-3 flex-1">
+            <div>
+              <p className="text-slate-400 text-xs font-medium uppercase tracking-wider">Current Volume</p>
+              <p className="text-2xl font-black text-white font-mono mt-0.5">
+                {tank.currentLevel.toLocaleString()} <span className="text-slate-400 text-sm font-normal">L</span>
+              </p>
+            </div>
+            <div>
+              <p className="text-slate-400 text-xs font-medium uppercase tracking-wider">Max Capacity</p>
+              <p className="text-lg font-bold text-slate-300 font-mono mt-0.5">
+                {tank.capacity.toLocaleString()} <span className="text-slate-500 text-xs font-normal">L</span>
+              </p>
+            </div>
           </div>
         </div>
-        <div className="overflow-hidden h-4 mb-4 text-xs flex rounded-full bg-gray-200">
-          <div style={{ width: `${percentage}%` }} className={`shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center ${color} transition-all duration-500`}></div>
-        </div>
-      </div>
-      
-      <div className="text-sm text-gray-600 mb-4 flex justify-between">
-        <span>Current: <strong className="text-gray-900">{tank.currentLevel.toLocaleString()} L</strong></span>
-        <span>Max: {tank.capacity.toLocaleString()} L</span>
       </div>
 
-      <div className="mt-4 pt-4 border-t border-gray-100">
-        <p className="text-xs text-gray-500 font-semibold mb-2 uppercase tracking-wide">Connected Pumps</p>
-        <div className="flex flex-wrap gap-2">
+      <div className="mt-4 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+        <div className="flex gap-1.5 overflow-hidden">
           {tank.pumps.map(pump => (
-            <span key={pump.pumpId} className="inline-flex items-center px-2 py-1 bg-gray-50 border border-gray-200 rounded text-xs font-medium text-gray-600">
+            <span 
+              key={pump.pumpId} 
+              className="inline-flex items-center px-2 py-0.5 bg-slate-900/50 border border-slate-800 rounded-md text-[10px] font-medium text-slate-400 hover:text-blue-400 hover:border-blue-500/20 transition-all font-mono"
+            >
               {pump.name}
             </span>
           ))}
         </div>
+        <span className={`w-2.5 h-2.5 rounded-full ${tank.isActive ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-slate-600'}`} title={tank.isActive ? 'Active' : 'Inactive'} />
       </div>
     </div>
   );
