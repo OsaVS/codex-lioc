@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useAuthStore } from '../context/useAuthStore';
 import StationMap from '../components/dashboard/StationMap';
-import { StationLocation, RefuelRequest } from '../types/replenishment';
+import type { StationLocation, RefuelRequest } from '../types/replenishment';
 import { CheckIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
 // Mock Data

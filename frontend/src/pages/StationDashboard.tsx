@@ -1,9 +1,8 @@
-import React from 'react';
 import { useAuthStore } from '../context/useAuthStore';
 import TankLevelCard from '../components/tanks/TankLevelCard';
 import { ManualMeasurementForm, PumpTotalizerForm } from '../components/tanks/ReadingForms';
 import FuelLevelChart from '../components/analytics/FuelLevelChart';
-import { Tank } from '../types/fuel';
+import type { Tank } from '../types/fuel';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 
 // Mock Data

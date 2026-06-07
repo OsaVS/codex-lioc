@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { StationLocation } from '../../types/replenishment';
+import type { StationLocation } from '../../types/replenishment';
 
 // Fix leaflet default icon issue in React
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';

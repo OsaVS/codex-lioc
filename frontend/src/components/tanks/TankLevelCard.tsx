@@ -1,5 +1,4 @@
-import React from 'react';
-import { Tank } from '../../types/fuel';
+import type { Tank } from '../../types/fuel';
 
 interface Props {
   tank: Tank;
