@@ -5,7 +5,11 @@ export interface RefuelRequest {
   requestedDate: string;
   fuelType: string;
   requestedQuantity: number;
-  status: 'PENDING' | 'APPROVED' | 'REJECTED' | 'DELIVERED';
+  approvedQuantity?: number;
+  deliveredQuantity?: number;
+  scheduledDeliveryTime?: string;
+  deliveryTime?: string;
+  status: 'DRAFT' | 'SUBMITTED' | 'APPROVED' | 'SCHEDULED' | 'DELIVERED' | 'REJECTED';
 }
 
 export interface StationLocation {

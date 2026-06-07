@@ -52,3 +52,30 @@ Based on the finalized database ERD including Pumps, Stations, Manual Sensors, a
 - **`POST /api/requests/:requestId/decision`**
   - **Body**: `{ status: "APPROVED" | "REJECTED", decisionUserId, comments }`
   - **Description**: Approves or rejects a fuel replenishment request.
+
+## 7. Mini Mart Inventory Management
+- **`GET /api/minimart/products`**
+  - **Response**: `[{ id, name, category: "LUBRICANT" | "ENGINE_OIL" | "COOLANT" | "BRAKE_FLUID" | "CAR_CARE" | "ACCESSORIES", currentStock, reorderLevel, supplier, expiryDate, batchNumber, price }]`
+  - **Description**: Returns all mini-mart products in the filling station inventory.
+
+- **`POST /api/minimart/products`**
+  - **Body**: `{ name, category, currentStock, reorderLevel, supplier, expiryDate, batchNumber, price }`
+  - **Response**: `{ success: true, product }`
+  - **Description**: Registers a new product in the mini-mart catalog.
+
+- **`POST /api/minimart/pos/transaction`**
+  - **Body**: `{ productId, type: "SALE" | "RETURN" | "STOCK_UPDATE", quantity }`
+  - **Response**: `{ success: true, newStock }`
+  - **Description**: Processes transactions from the POS system, updating stock levels and triggering low-stock alerts.
+
+## 8. Replenishment Lifecycle & Scheduling
+- **`PUT /api/requests/:requestId/status`**
+  - **Body**: `{ status: "DRAFT" | "SUBMITTED" | "APPROVED" | "SCHEDULED" | "DELIVERED" | "REJECTED", approvedQuantity?: number, scheduledDeliveryTime?: string }`
+  - **Response**: `{ success: true, request }`
+  - **Description**: Updates refuel request status through the full lifecycle including dispatch scheduling and final delivery fulfillment.
+
+## 9. Executive Dashboard & Network Analytics
+- **`GET /api/analytics/executive`**
+  - **Response**: `{ totalInventory: { fuel: number, products: number }, fuelTurnoverRate: number, stockoutsCount: number, deliveryEfficiency: number }`
+  - **Description**: Computes network-wide executive metrics (fuel turnover, delivery efficiency ratios, stock-outs count).
+

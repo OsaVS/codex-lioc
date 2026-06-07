@@ -7,27 +7,43 @@ interface Props {
 export default function TankLevelCard({ tank }: Props) {
   const percentage = Math.round((tank.currentLevel / tank.capacity) * 100);
   
-  // Set wave color based on levels
+  // Calculate remaining days based on mock consumption rates (FR-1.4)
+  // Assume average daily consumption: Petrol ~700L/day, Diesel ~900L/day
+  const consumptionRate = tank.fuelType.toLowerCase().includes('petrol') ? 700 : 900;
+  const remainingDays = Math.max(0.1, Number((tank.currentLevel / consumptionRate).toFixed(1)));
+
+  // Set wave color based on level percentage (FR-1.4 Stock status)
   let liquidColor = '#0284c7'; // Sky 600
   let liquidColorDark = '#0369a1'; // Sky 700
   let badgeColor = 'bg-sky-500/10 text-sky-400 border-sky-500/20';
   let glowColor = 'shadow-[0_0_15px_rgba(3,105,161,0.2)]';
+  let statusText = 'Normal';
 
-  if (percentage < 30) {
+  if (percentage <= 0) {
+    statusText = 'Empty';
+    liquidColor = '#475569'; // Slate 600
+    liquidColorDark = '#334155';
+    badgeColor = 'bg-slate-500/10 text-slate-400 border-slate-500/20';
+    glowColor = 'shadow-none';
+  } else if (percentage < 15) {
+    statusText = 'Critical';
+    liquidColor = '#ef4444'; // Red 500
+    liquidColorDark = '#dc2626'; // Red 600
+    badgeColor = 'bg-red-500/10 text-red-400 border-red-500/20 animate-pulse';
+    glowColor = 'shadow-[0_0_20px_rgba(220,38,38,0.55)]';
+  } else if (percentage < 30) {
+    statusText = 'Low Stock';
     liquidColor = '#f59e0b'; // Amber 500
     liquidColorDark = '#d97706'; // Amber 600
     badgeColor = 'bg-amber-500/10 text-amber-400 border-amber-500/20';
     glowColor = 'shadow-[0_0_15px_rgba(217,119,6,0.35)]';
   }
-  if (percentage < 15) {
-    liquidColor = '#ef4444'; // Red 500
-    liquidColorDark = '#dc2626'; // Red 600
-    badgeColor = 'bg-red-500/10 text-red-400 border-red-500/20 animate-pulse';
-    glowColor = 'shadow-[0_0_20px_rgba(220,38,38,0.5)]';
-  }
+
+  // Calculated available capacity
+  const availableCapacity = tank.capacity - tank.currentLevel;
 
   return (
-    <div className={`glass-card glass-card-hover p-6 rounded-2xl relative overflow-hidden flex flex-col justify-between h-80 ${glowColor}`}>
+    <div className={`glass-card glass-card-hover p-6 rounded-2xl relative overflow-hidden flex flex-col justify-between h-[340px] ${glowColor}`}>
       {/* Decorative gradient overlay */}
       <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-full blur-2xl pointer-events-none" />
 
@@ -38,7 +54,7 @@ export default function TankLevelCard({ tank }: Props) {
             <span className="text-slate-500 text-xs font-mono">ID: {tank.tankId}</span>
           </div>
           <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold border ${badgeColor}`}>
-            {percentage < 15 ? 'Critical' : percentage < 30 ? 'Low Stock' : 'Normal'}
+            {statusText}
           </span>
         </div>
 
@@ -73,9 +89,16 @@ export default function TankLevelCard({ tank }: Props) {
               </p>
             </div>
             <div>
-              <p className="text-slate-400 text-xs font-medium uppercase tracking-wider">Max Capacity</p>
-              <p className="text-lg font-bold text-slate-300 font-mono mt-0.5">
-                {tank.capacity.toLocaleString()} <span className="text-slate-500 text-xs font-normal">L</span>
+              <p className="text-slate-400 text-xs font-medium uppercase tracking-wider">Available Capacity</p>
+              <p className="text-sm font-bold text-slate-300 font-mono mt-0.5">
+                {availableCapacity.toLocaleString()} <span className="text-slate-500 text-xs font-normal">L</span>
+              </p>
+            </div>
+            {/* Depletion calculation */}
+            <div className="mt-1 pt-1.5 border-t border-slate-800/60">
+              <p className="text-slate-400 text-xs font-semibold uppercase tracking-wider">Depletion Estimate</p>
+              <p className={`text-xs font-bold font-mono mt-0.5 ${remainingDays < 2 ? 'text-red-400' : 'text-slate-200'}`}>
+                {remainingDays} days remaining
               </p>
             </div>
           </div>

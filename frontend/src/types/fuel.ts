@@ -7,7 +7,7 @@ export interface Tank {
   tankId: string;
   stationId: string;
   fuelType: string;
-  capacity: number; // cross sectional area * height
+  capacity: number;
   currentLevel: number;
   isActive: boolean;
   pumps: Pump[];
@@ -16,4 +16,12 @@ export interface Tank {
 export interface TankHistory {
   measuredTime: string;
   level: number;
+}
+
+export interface ManualDipstickEntry {
+  tankId: string;
+  measuredTime: string;
+  dipstickValue: number; // in mm
+  calculatedVolume: number; // in Liters
+  operator: string;
 }
