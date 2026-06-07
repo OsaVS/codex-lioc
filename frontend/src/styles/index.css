@@ -1,3 +1,125 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Glassmorphism Classes */
+.glass-card {
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card-hover:hover {
+  border-color: rgba(59, 130, 246, 0.3);
+  box-shadow: 0 12px 40px 0 rgba(59, 130, 246, 0.15);
+  transform: translateY(-2px);
+}
+
+.glass-navbar {
+  background: rgba(9, 15, 29, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Animated Mesh Background */
+.mesh-gradient-bg {
+  background: linear-gradient(135deg, #070b19 0%, #0a1428 40%, #110825 80%, #03050c 100%);
+  background-size: 400% 400%;
+  animation: mesh-glow 20s ease infinite;
+}
+
+@keyframes mesh-glow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Cylinder Liquid Tank Gauge */
+.cylinder-tank {
+  position: relative;
+  width: 90px;
+  height: 160px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 3px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.8), 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: flex-end;
+}
+
+.tank-liquid {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: var(--liquid-level, 50%);
+  transition: height 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+}
+
+.wave-front {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  background: var(--liquid-color, #3b82f6);
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 41% 43% 40% 42%;
+  animation: wave-spin 6s infinite linear;
+  opacity: 0.85;
+}
+
+.wave-back {
+  position: absolute;
+  width: 230px;
+  height: 230px;
+  background: var(--liquid-color-dark, #1d4ed8);
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 39% 42% 41% 43%;
+  animation: wave-spin-reverse 8s infinite linear;
+  opacity: 0.5;
+}
+
+@keyframes wave-spin {
+  from { transform: translateX(-50%) rotate(0deg); }
+  to { transform: translateX(-50%) rotate(360deg); }
+}
+
+@keyframes wave-spin-reverse {
+  from { transform: translateX(-50%) rotate(360deg); }
+  to { transform: translateX(-50%) rotate(0deg); }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
