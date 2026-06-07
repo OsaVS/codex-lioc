@@ -1,60 +1,92 @@
 @import "tailwindcss";
 
+/* ─── LIOC Brand Font Stack ─────────────────────────────────────────── */
 @layer base {
   body {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    background-color: #06030F;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  }
+  .font-mono, code, kbd, samp, pre {
+    font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
   }
 }
 
-/* Glassmorphism Classes */
+/* ─── LIOC Brand Color Variables ───────────────────────────────────── */
+:root {
+  --lioc-purple:       #7C3AED;   /* violet-600  – primary brand */
+  --lioc-purple-light: #A78BFA;   /* violet-400  – hover/accent  */
+  --lioc-purple-dark:  #5B21B6;   /* violet-700  – deep tone     */
+  --lioc-blue:         #2563EB;   /* blue-600    – secondary     */
+  --lioc-blue-light:   #60A5FA;   /* blue-400    – highlight     */
+  --lioc-gold:         #F59E0B;   /* amber-500   – alert/accent  */
+  --lioc-surface:      rgba(14, 8, 36, 0.72);
+  --lioc-border:       rgba(124, 58, 237, 0.18);
+  --lioc-border-hover: rgba(124, 58, 237, 0.45);
+}
+
+/* ─── Glassmorphism Cards (LIOC Purple-tinted) ──────────────────────── */
 .glass-card {
-  background: rgba(15, 23, 42, 0.65);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  background: var(--lioc-surface);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid var(--lioc-border);
+  box-shadow:
+    0 8px 32px 0 rgba(0, 0, 0, 0.45),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.04);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-card-hover:hover {
-  border-color: rgba(59, 130, 246, 0.3);
-  box-shadow: 0 12px 40px 0 rgba(59, 130, 246, 0.15);
+  border-color: var(--lioc-border-hover);
+  box-shadow:
+    0 12px 40px 0 rgba(124, 58, 237, 0.2),
+    inset 0 0 0 0.5px rgba(167, 139, 250, 0.12);
   transform: translateY(-2px);
 }
 
+/* ─── Glassmorphic Navbar ───────────────────────────────────────────── */
 .glass-navbar {
-  background: rgba(9, 15, 29, 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(6, 3, 15, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.15);
+  box-shadow: 0 1px 0 0 rgba(124, 58, 237, 0.08);
 }
 
-/* Animated Mesh Background */
+/* ─── Animated Mesh Background ─────────────────────────────────────── */
 .mesh-gradient-bg {
-  background: linear-gradient(135deg, #070b19 0%, #0a1428 40%, #110825 80%, #03050c 100%);
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 0%,   rgba(109,40,217,0.25) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 80% 100%,  rgba(37,99,235,0.2)  0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 50% 50%,   rgba(124,58,237,0.08) 0%, transparent 80%),
+    linear-gradient(160deg, #06030F 0%, #0B0520 45%, #06030F 100%);
   background-size: 400% 400%;
-  animation: mesh-glow 20s ease infinite;
+  animation: mesh-glow 22s ease infinite;
 }
 
 @keyframes mesh-glow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
 
-/* Cylinder Liquid Tank Gauge */
+/* ─── Cylinder Liquid Tank Gauge ────────────────────────────────────── */
 .cylinder-tank {
   position: relative;
-  width: 90px;
-  height: 160px;
-  background: rgba(15, 23, 42, 0.6);
-  border: 3px solid rgba(255, 255, 255, 0.12);
-  border-radius: 16px;
+  width: 96px;
+  height: 172px;
+  background: rgba(6, 3, 15, 0.7);
+  border: 2.5px solid rgba(124, 58, 237, 0.25);
+  border-radius: 18px;
   overflow: hidden;
-  box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.8), 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    inset 0 4px 14px rgba(0, 0, 0, 0.8),
+    0 4px 16px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255,255,255,0.03);
   display: flex;
   align-items: flex-end;
 }
@@ -65,61 +97,111 @@
   left: 0;
   width: 100%;
   height: var(--liquid-level, 50%);
-  transition: height 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: height 1.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   overflow: hidden;
 }
 
 .wave-front {
   position: absolute;
-  width: 220px;
-  height: 220px;
-  background: var(--liquid-color, #3b82f6);
+  width: 240px;
+  height: 240px;
+  background: var(--liquid-color, #7C3AED);
   bottom: -4px;
   left: 50%;
   transform: translateX(-50%);
   border-radius: 41% 43% 40% 42%;
   animation: wave-spin 6s infinite linear;
-  opacity: 0.85;
+  opacity: 0.88;
 }
 
 .wave-back {
   position: absolute;
-  width: 230px;
-  height: 230px;
-  background: var(--liquid-color-dark, #1d4ed8);
+  width: 250px;
+  height: 250px;
+  background: var(--liquid-color-dark, #5B21B6);
   bottom: 0px;
   left: 50%;
   transform: translateX(-50%);
   border-radius: 39% 42% 41% 43%;
-  animation: wave-spin-reverse 8s infinite linear;
-  opacity: 0.5;
+  animation: wave-spin-reverse 8.5s infinite linear;
+  opacity: 0.55;
 }
 
 @keyframes wave-spin {
   from { transform: translateX(-50%) rotate(0deg); }
-  to { transform: translateX(-50%) rotate(360deg); }
+  to   { transform: translateX(-50%) rotate(360deg); }
 }
 
 @keyframes wave-spin-reverse {
   from { transform: translateX(-50%) rotate(360deg); }
-  to { transform: translateX(-50%) rotate(0deg); }
+  to   { transform: translateX(-50%) rotate(0deg); }
 }
 
-/* Custom Scrollbar */
+/* ─── LIOC Primary Button ───────────────────────────────────────────── */
+.btn-lioc-primary {
+  background: linear-gradient(135deg, var(--lioc-purple) 0%, var(--lioc-blue) 100%);
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  box-shadow: 0 4px 18px rgba(124, 58, 237, 0.35);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.btn-lioc-primary:hover {
+  box-shadow: 0 6px 24px rgba(124, 58, 237, 0.55);
+  opacity: 0.92;
+}
+.btn-lioc-primary:active {
+  transform: scale(0.975);
+}
+
+/* ─── Status Badge Sizes ────────────────────────────────────────────── */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  border-width: 1px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ─── Table Enhancements ─────────────────────────────────────────────── */
+.lioc-table th {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 14px 16px;
+  color: rgba(167, 139, 250, 0.8);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.15);
+}
+.lioc-table td {
+  font-size: 14px;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(124, 58, 237, 0.08);
+}
+.lioc-table tr:hover td {
+  background: rgba(124, 58, 237, 0.05);
+}
+
+/* ─── Custom Scrollbar ──────────────────────────────────────────────── */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
-
 ::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.3);
+  background: rgba(6, 3, 15, 0.5);
 }
-
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(124, 58, 237, 0.3);
   border-radius: 3px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(124, 58, 237, 0.55);
 }
