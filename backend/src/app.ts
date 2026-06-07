@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import authRouter from "./routes/auth.js";
 import stationsRouter from "./routes/stations.js";
 import tanksRouter from "./routes/tanks.js";
+import pumpsRouter from "./routes/pumps.js";
 import { requireAuth } from "./middleware/authMiddleware.js";
 
 export const app = express();
@@ -14,6 +15,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRouter);
 app.use("/api/stations", stationsRouter);
 app.use("/api/tanks", tanksRouter);
+app.use("/api/pumps", pumpsRouter);
 
 app.get("/", (req: Request, res: Response) => {
     res.send("Hello from Express + TypeScript!");

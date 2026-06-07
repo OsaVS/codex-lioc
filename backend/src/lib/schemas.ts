@@ -23,3 +23,15 @@ export const loginSchema = z.object({
   usernameOrEmail: z.string().min(1),
   password: z.string().min(1),
 });
+
+export const manualMeasurementSchema = z.object({
+  measuredTime: z.coerce.date(),
+  measurement: z.coerce.number().nonnegative(),
+  userId: z.coerce.number().int().positive(),
+});
+
+export const pumpReadingSchema = z.object({
+  timestamp: z.coerce.date(),
+  readingValue: z.coerce.number().nonnegative(),
+});
+
