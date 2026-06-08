@@ -190,6 +190,26 @@ export default function RegionalDashboard() {
   const [requests, setRequests] = useState<RefuelRequest[]>([]);
   const [selectedStationId, setSelectedStationId] = useState<string | null>(null);
   const [approvalModal, setApprovalModal] = useState<{ requestId: string; requestedQuantity: number; approvedQty: number } | null>(null);
+  const [statusFilters, setStatusFilters] = useState<Set<string>>(new Set());
+  const [stationFilter, setStationFilter] = useState<string>('ALL');
+  console.log(requests);
+
+  const toggleFilter = (status: string) => {
+    console.log('[toggleFilter] called with status:', status);
+    setStatusFilters(prev => {
+      const before = [...prev];
+      const next = new Set(prev);
+      next.has(status) ? next.delete(status) : next.add(status);
+      console.log('[toggleFilter] statusFilters before:', before, '→ after:', [...next]);
+      return next;
+    });
+  };
+
+  const displayedRequests = requests
+    .filter(r => statusFilters.size === 0 || statusFilters.has(r.status))
+    .filter(r => stationFilter === 'ALL' || r.stationId === stationFilter)
+    .slice()
+    .sort((a, b) => new Date(b.requestedDate).getTime() - new Date(a.requestedDate).getTime());
 
   useEffect(() => { setRequests(loadRequestsFromStorage()); }, []);
 
@@ -439,24 +459,67 @@ export default function RegionalDashboard() {
             </h1>
 
             <div className="glass-card rounded-2xl overflow-hidden" style={{ border: '1px solid var(--border-card)' }}>
-              <div className="px-6 py-5 flex items-center justify-between" style={{ borderBottom: '1px solid var(--border-table-head)' }}>
-                <div>
-                  <h2 className="font-bold text-lg" style={{ fontFamily: 'Space Grotesk', color: 'var(--text-heading)' }}>
-                    Replenishment Tickets
-                  </h2>
-                  <p className="text-sm mt-0.5" style={{ color: 'var(--text-muted)' }}>
-                    Submitted → Approved → Scheduled → Delivered
-                  </p>
+              <div
+                className="px-6 py-4 flex flex-col gap-3"
+                style={{ borderBottom: '1px solid var(--border-table-head)' }}
+              >
+                {/* Row 1: title + status toggle buttons */}
+                <div className="flex items-center justify-between gap-4 flex-wrap">
+                  <div>
+                    <h2 className="font-bold text-lg" style={{ fontFamily: 'Space Grotesk', color: 'var(--text-heading)' }}>
+                      Replenishment Tickets
+                    </h2>
+                    <p className="text-sm mt-0.5" style={{ color: 'var(--text-muted)' }}>
+                      Submitted → Approved → Scheduled → Delivered
+                    </p>
+                  </div>
+                  <div className="flex gap-2 flex-wrap">
+                    {([
+                      { status: 'SUBMITTED', label: 'pending', onCls: 'bg-blue-500   text-white border-blue-600', offCls: 'bg-blue-500/15 text-blue-400 border-blue-500/20' },
+                      { status: 'APPROVED', label: 'approved', onCls: 'bg-violet-500 text-white border-violet-600', offCls: 'bg-violet-500/15 text-violet-400 border-violet-500/20' },
+                      { status: 'SCHEDULED', label: 'en route', onCls: 'bg-amber-500  text-white border-amber-600', offCls: 'bg-amber-500/15 text-amber-400 border-amber-500/20' },
+                    ] as const).map(({ status, label, onCls, offCls }) => (
+                      <button
+                        key={status}
+                        onClick={() => toggleFilter(status)}
+                        className={`text-xs font-bold px-3 py-1 rounded-full border transition-all duration-150 cursor-pointer select-none ${statusFilters.has(status) ? onCls : offCls}`}
+                      >
+                        {requests.filter(r => r.status === status).length} {label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-                <div className="flex gap-2">
-                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-blue-500/15 text-blue-400 border border-blue-500/20">
-                    {requests.filter(r => r.status === 'SUBMITTED').length} pending
-                  </span>
-                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-violet-500/15 text-violet-400 border border-violet-500/20">
-                    {requests.filter(r => r.status === 'APPROVED').length} approved
-                  </span>
-                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-amber-500/15 text-amber-400 border border-amber-500/20">
-                    {requests.filter(r => r.status === 'SCHEDULED').length} en route
+
+                {/* Row 2: station filter */}
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>Station</span>
+                  <select
+                    value={stationFilter}
+                    onChange={e => setStationFilter(e.target.value)}
+                    className="text-xs font-semibold px-3 py-1.5 rounded-lg cursor-pointer transition-all"
+                    style={{
+                      background: 'var(--bg-surface)',
+                      border: '1px solid var(--border-card)',
+                      color: stationFilter === 'ALL' ? 'var(--text-muted)' : 'var(--text-heading)',
+                      outline: 'none',
+                    }}
+                  >
+                    <option value="ALL">All Stations</option>
+                    {Array.from(new Map(requests.map(r => [r.stationId, r.stationName])).entries()).map(([id, name]) => (
+                      <option key={id} value={id}>{name} ({id})</option>
+                    ))}
+                  </select>
+                  {stationFilter !== 'ALL' && (
+                    <button
+                      onClick={() => setStationFilter('ALL')}
+                      className="text-xs px-2 py-1 rounded-lg cursor-pointer transition-all"
+                      style={{ color: 'var(--text-faint)', border: '1px solid var(--border-card)' }}
+                    >
+                      ✕ clear
+                    </button>
+                  )}
+                  <span className="text-xs ml-auto" style={{ color: 'var(--text-faint)' }}>
+                    {displayedRequests.length} of {requests.length} requests · newest first
                   </span>
                 </div>
               </div>
@@ -476,7 +539,7 @@ export default function RegionalDashboard() {
                     </tr>
                   </thead>
                   <tbody>
-                    {requests.map(req => {
+                    {displayedRequests.map(req => {
                       const key = `${req.stationId}_${req.fuelType}`;
                       const demand = MOCK_DEMAND[key];
                       const inv = MOCK_INVENTORY[key];
@@ -599,10 +662,12 @@ export default function RegionalDashboard() {
                         </tr>
                       );
                     })}
-                    {requests.length === 0 && (
+                    {displayedRequests.length === 0 && (
                       <tr>
                         <td colSpan={8} className="text-center py-12" style={{ color: 'var(--text-faint)' }}>
-                          No active requests. Switch to a Station Manager account to generate requests.
+                          {requests.length === 0
+                            ? 'No active requests. Switch to a Station Manager account to generate requests.'
+                            : 'No requests match the selected filters.'}
                         </td>
                       </tr>
                     )}
