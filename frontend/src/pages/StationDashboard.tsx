@@ -4,7 +4,6 @@ import { useThemeStore } from '../context/useThemeStore';
 import TankLevelCard from '../components/tanks/TankLevelCard';
 import { ManualMeasurementForm, PumpTotalizerForm } from '../components/tanks/ReadingForms';
 import FuelLevelChart from '../components/analytics/FuelLevelChart';
-import MinimartPOSSimulator from '../components/minimart/MinimartPOSSimulator';
 import type { Tank } from '../types/fuel';
 import type { MinimartProduct } from '../types/minimart';
 import type { RefuelRequest } from '../types/replenishment';
@@ -144,7 +143,7 @@ export default function StationDashboard() {
   const { theme, toggleTheme } = useThemeStore();
   const [activeTab, setActiveTab] = useState<'fuel' | 'minimart' | 'replenishment'>('fuel');
   const [tanks, setTanks] = useState<Tank[]>(DEFAULT_TANKS);
-  const [products, setProducts] = useState<MinimartProduct[]>(DEFAULT_PRODUCTS);
+  const [products] = useState<MinimartProduct[]>(DEFAULT_PRODUCTS);
   const [requests, setRequests] = useState<RefuelRequest[]>(loadRequestsFromStorage());
   const [manualFuelType, setManualFuelType] = useState('Petrol 92 Octane');
   const [manualQuantity, setManualQuantity] = useState(10000);
@@ -175,16 +174,6 @@ export default function StationDashboard() {
   }, [tanks]);
 
   // Handlers
-  const handleProcessTransaction = (type: 'SALE' | 'RETURN' | 'STOCK_UPDATE', productId: string, quantity: number) =>
-    setProducts(prev => prev.map(p => {
-      if (p.id !== productId) return p;
-      let s = p.currentStock;
-      if (type === 'SALE') s = Math.max(0, s - quantity);
-      else if (type === 'RETURN') s = s + quantity;
-      else s = quantity;
-      return { ...p, currentStock: s };
-    }));
-
   const handleManualEntrySubmit = (data: { tankId: string; dipstickValue: number; measuredVolume: number; operator: string }) =>
     setTanks(prev => prev.map(t => t.tankId !== data.tankId ? t : { ...t, currentLevel: data.measuredVolume }));
 
@@ -436,10 +425,7 @@ export default function StationDashboard() {
             TAB 2 — MINI MART
         ══════════════════════════════════════════════════════════════ */}
         {activeTab === 'minimart' && (
-          <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-            {/* Products Table */}
-            <div className="xl:col-span-2">
-              <div className="glass-card rounded-2xl overflow-hidden border border-violet-500/15">
+          <div className="glass-card rounded-2xl overflow-hidden border border-violet-500/15">
                 <div className="px-6 py-5 border-b border-violet-500/12 flex items-center justify-between">
                   <div>
                     <h2 className="font-bold text-lg text-white" style={{ fontFamily: 'Space Grotesk' }}>
@@ -514,14 +500,7 @@ export default function StationDashboard() {
                   </table>
                 </div>
               </div>
-            </div>
-
-            {/* POS Simulator */}
-            <div>
-              <MinimartPOSSimulator products={products} onProcessTransaction={handleProcessTransaction} />
-            </div>
-          </div>
-        )}
+            )}
 
         {/* ══════════════════════════════════════════════════════════════
             TAB 3 — REPLENISHMENT

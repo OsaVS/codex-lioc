@@ -104,12 +104,12 @@
   --border-tab:         rgba(249, 115, 22, 0.15);
 
   /* Text */
-  --text-primary:       #1E1B18;
-  --text-secondary:     #4B4542;
-  --text-muted:         #6B6562;
-  --text-faint:         #8B8582;
-  --text-heading:       #0F0D0B;
-  --text-th:            rgba(194, 65, 12, 0.90);
+  --text-primary:       #110F0E;
+  --text-secondary:     #2B2724;
+  --text-muted:         #443E3A;
+  --text-faint:         #5C5551;
+  --text-heading:       #0A0908;
+  --text-th:            #9A3412;
 
   /* Shadows */
   --shadow-card:        0 4px 24px 0 rgba(0,0,0,0.08), 0 1px 3px 0 rgba(0,0,0,0.06);
@@ -341,12 +341,28 @@
 /* ─── Light theme text helpers ───────────────────────────────────────── */
 [data-theme="light"] .text-slate-100,
 [data-theme="light"] .text-slate-200,
-[data-theme="light"] .text-slate-300 { color: #1E1B18; }
-[data-theme="light"] .text-slate-400 { color: #4B4542; }
-[data-theme="light"] .text-slate-500 { color: #6B6562; }
-[data-theme="light"] .text-slate-600 { color: #8B8582; }
-[data-theme="light"] .text-slate-700 { color: #A09D9A; }
-[data-theme="light"] .text-white     { color: #0F0D0B; }
+[data-theme="light"] .text-slate-300 { color: #110F0E; }
+[data-theme="light"] .text-slate-400 { color: #2B2724; }
+[data-theme="light"] .text-slate-500 { color: #443E3A; }
+[data-theme="light"] .text-slate-600 { color: #5C5551; }
+[data-theme="light"] .text-slate-700 { color: #726A66; }
+[data-theme="light"] .text-white     { color: #0A0908; }
+
+/* Status, category, and accent text helpers in light mode */
+[data-theme="light"] .text-violet-400,
+[data-theme="light"] .text-violet-300 { color: #6D28D9; }
+[data-theme="light"] .text-amber-400,
+[data-theme="light"] .text-amber-300 { color: #B45309; }
+[data-theme="light"] .text-red-400,
+[data-theme="light"] .text-red-300 { color: #B91C1C; }
+[data-theme="light"] .text-green-400,
+[data-theme="light"] .text-green-300,
+[data-theme="light"] .text-emerald-400,
+[data-theme="light"] .text-emerald-300 { color: #047857; }
+[data-theme="light"] .text-blue-400,
+[data-theme="light"] .text-blue-300 { color: #1D4ED8; }
+[data-theme="light"] .text-orange-400,
+[data-theme="light"] .text-orange-300 { color: #C2410C; }
 
 [data-theme="light"] .bg-slate-950\/70 { background: rgba(240,235,228,0.90); }
 [data-theme="light"] .bg-slate-950\/60 { background: rgba(255,255,255,0.80); }
