@@ -22,108 +22,108 @@ import {
 
 // ── 6 Sri Lankan LIOC stations in Western Province ──────────────────────────
 const MOCK_STATIONS: StationLocation[] = [
-  { stationId: 'STN001', name: 'Colombo 03 LIOC',    address: '12/1 Galle Rd, Colombo 03',        latitude: 6.9128, longitude: 79.8507, status: 'NORMAL'   },
-  { stationId: 'STN002', name: 'Nugegoda Junction',  address: 'High Level Rd, Nugegoda',           latitude: 6.8649, longitude: 79.8997, status: 'CRITICAL'  },
-  { stationId: 'STN003', name: 'Dehiwala LIOC',      address: '45 Station Rd, Dehiwala',           latitude: 6.8402, longitude: 79.8712, status: 'LOW'       },
-  { stationId: 'STN004', name: 'Moratuwa City',      address: 'New Rd, Moratuwa',                  latitude: 6.7731, longitude: 79.8820, status: 'NORMAL'    },
-  { stationId: 'STN005', name: 'Panadura Central',   address: 'Galle Rd, Panadura',                latitude: 6.7135, longitude: 79.9069, status: 'LOW'       },
-  { stationId: 'STN006', name: 'Kaduwela Express',   address: 'Colombo–Kandy Rd, Kaduwela',        latitude: 6.9278, longitude: 79.9844, status: 'NORMAL'    },
+  { stationId: 'STN001', name: 'Colombo 03 LIOC', address: '12/1 Galle Rd, Colombo 03', latitude: 6.9128, longitude: 79.8507, status: 'NORMAL' },
+  { stationId: 'STN002', name: 'Nugegoda Junction', address: 'High Level Rd, Nugegoda', latitude: 6.8649, longitude: 79.8997, status: 'CRITICAL' },
+  { stationId: 'STN003', name: 'Dehiwala LIOC', address: '45 Station Rd, Dehiwala', latitude: 6.8402, longitude: 79.8712, status: 'LOW' },
+  { stationId: 'STN004', name: 'Moratuwa City', address: 'New Rd, Moratuwa', latitude: 6.7731, longitude: 79.8820, status: 'NORMAL' },
+  { stationId: 'STN005', name: 'Panadura Central', address: 'Galle Rd, Panadura', latitude: 6.7135, longitude: 79.9069, status: 'LOW' },
+  { stationId: 'STN006', name: 'Kaduwela Express', address: 'Colombo–Kandy Rd, Kaduwela', latitude: 6.9278, longitude: 79.9844, status: 'NORMAL' },
 ];
 
 // ── Per-station tank mock data ────────────────────────────────────────────────
 const STATION_TANKS: Record<string, Tank[]> = {
   STN001: [
-    { tankId: 'TNK-001', stationId: 'STN001', fuelType: 'Petrol 92 Octane', capacity: 15000, currentLevel:  9500, isActive: true, pumps: [{ pumpId: 'P01', name: 'Pump 1A' }, { pumpId: 'P02', name: 'Pump 1B' }] },
-    { tankId: 'TNK-002', stationId: 'STN001', fuelType: 'Petrol 95 Octane', capacity: 10000, currentLevel:  3100, isActive: true, pumps: [{ pumpId: 'P04', name: 'Pump 2A' }] },
-    { tankId: 'TNK-003', stationId: 'STN001', fuelType: 'Diesel (Auto)',    capacity: 25000, currentLevel:  4200, isActive: true, pumps: [{ pumpId: 'P06', name: 'Pump 3A' }, { pumpId: 'P07', name: 'Pump 3B' }] },
-    { tankId: 'TNK-004', stationId: 'STN001', fuelType: 'Kerosene',         capacity:  8000, currentLevel:  7400, isActive: true, pumps: [{ pumpId: 'P08', name: 'Pump 4A' }] },
+    { tankId: 'TNK-001', stationId: 'STN001', fuelType: 'Petrol 92 Octane', capacity: 15000, currentLevel: 9500, isActive: true, pumps: [{ pumpId: 'P01', name: 'Pump 1A' }, { pumpId: 'P02', name: 'Pump 1B' }] },
+    { tankId: 'TNK-002', stationId: 'STN001', fuelType: 'Petrol 95 Octane', capacity: 10000, currentLevel: 3100, isActive: true, pumps: [{ pumpId: 'P04', name: 'Pump 2A' }] },
+    { tankId: 'TNK-003', stationId: 'STN001', fuelType: 'Diesel (Auto)', capacity: 25000, currentLevel: 4200, isActive: true, pumps: [{ pumpId: 'P06', name: 'Pump 3A' }, { pumpId: 'P07', name: 'Pump 3B' }] },
+    { tankId: 'TNK-004', stationId: 'STN001', fuelType: 'Kerosene', capacity: 8000, currentLevel: 7400, isActive: true, pumps: [{ pumpId: 'P08', name: 'Pump 4A' }] },
   ],
   STN002: [
-    { tankId: 'TNK-001', stationId: 'STN002', fuelType: 'Petrol 92 Octane', capacity: 15000, currentLevel:  1800, isActive: true, pumps: [{ pumpId: 'P01', name: 'Pump 1A' }] },
-    { tankId: 'TNK-002', stationId: 'STN002', fuelType: 'Petrol 95 Octane', capacity: 10000, currentLevel:   900, isActive: true, pumps: [{ pumpId: 'P04', name: 'Pump 2A' }] },
-    { tankId: 'TNK-003', stationId: 'STN002', fuelType: 'Diesel (Auto)',    capacity: 25000, currentLevel:  2100, isActive: true, pumps: [{ pumpId: 'P06', name: 'Pump 3A' }] },
-    { tankId: 'TNK-004', stationId: 'STN002', fuelType: 'Kerosene',         capacity:  8000, currentLevel:  6200, isActive: true, pumps: [{ pumpId: 'P08', name: 'Pump 4A' }] },
+    { tankId: 'TNK-001', stationId: 'STN002', fuelType: 'Petrol 92 Octane', capacity: 15000, currentLevel: 1800, isActive: true, pumps: [{ pumpId: 'P01', name: 'Pump 1A' }] },
+    { tankId: 'TNK-002', stationId: 'STN002', fuelType: 'Petrol 95 Octane', capacity: 10000, currentLevel: 900, isActive: true, pumps: [{ pumpId: 'P04', name: 'Pump 2A' }] },
+    { tankId: 'TNK-003', stationId: 'STN002', fuelType: 'Diesel (Auto)', capacity: 25000, currentLevel: 2100, isActive: true, pumps: [{ pumpId: 'P06', name: 'Pump 3A' }] },
+    { tankId: 'TNK-004', stationId: 'STN002', fuelType: 'Kerosene', capacity: 8000, currentLevel: 6200, isActive: true, pumps: [{ pumpId: 'P08', name: 'Pump 4A' }] },
   ],
   STN003: [
-    { tankId: 'TNK-001', stationId: 'STN003', fuelType: 'Petrol 92 Octane', capacity: 15000, currentLevel:  4200, isActive: true, pumps: [{ pumpId: 'P01', name: 'Pump 1A' }] },
-    { tankId: 'TNK-002', stationId: 'STN003', fuelType: 'Petrol 95 Octane', capacity: 10000, currentLevel:  2800, isActive: true, pumps: [{ pumpId: 'P04', name: 'Pump 2A' }] },
-    { tankId: 'TNK-003', stationId: 'STN003', fuelType: 'Diesel (Auto)',    capacity: 25000, currentLevel: 13800, isActive: true, pumps: [{ pumpId: 'P06', name: 'Pump 3A' }, { pumpId: 'P07', name: 'Pump 3B' }] },
-    { tankId: 'TNK-004', stationId: 'STN003', fuelType: 'Kerosene',         capacity:  8000, currentLevel:  5800, isActive: true, pumps: [{ pumpId: 'P08', name: 'Pump 4A' }] },
+    { tankId: 'TNK-001', stationId: 'STN003', fuelType: 'Petrol 92 Octane', capacity: 15000, currentLevel: 4200, isActive: true, pumps: [{ pumpId: 'P01', name: 'Pump 1A' }] },
+    { tankId: 'TNK-002', stationId: 'STN003', fuelType: 'Petrol 95 Octane', capacity: 10000, currentLevel: 2800, isActive: true, pumps: [{ pumpId: 'P04', name: 'Pump 2A' }] },
+    { tankId: 'TNK-003', stationId: 'STN003', fuelType: 'Diesel (Auto)', capacity: 25000, currentLevel: 13800, isActive: true, pumps: [{ pumpId: 'P06', name: 'Pump 3A' }, { pumpId: 'P07', name: 'Pump 3B' }] },
+    { tankId: 'TNK-004', stationId: 'STN003', fuelType: 'Kerosene', capacity: 8000, currentLevel: 5800, isActive: true, pumps: [{ pumpId: 'P08', name: 'Pump 4A' }] },
   ],
   STN004: [
     { tankId: 'TNK-001', stationId: 'STN004', fuelType: 'Petrol 92 Octane', capacity: 15000, currentLevel: 10800, isActive: true, pumps: [{ pumpId: 'P01', name: 'Pump 1A' }, { pumpId: 'P02', name: 'Pump 1B' }] },
-    { tankId: 'TNK-002', stationId: 'STN004', fuelType: 'Petrol 95 Octane', capacity: 10000, currentLevel:  7200, isActive: true, pumps: [{ pumpId: 'P04', name: 'Pump 2A' }, { pumpId: 'P05', name: 'Pump 2B' }] },
-    { tankId: 'TNK-003', stationId: 'STN004', fuelType: 'Diesel (Auto)',    capacity: 25000, currentLevel: 17000, isActive: true, pumps: [{ pumpId: 'P06', name: 'Pump 3A' }, { pumpId: 'P07', name: 'Pump 3B' }] },
-    { tankId: 'TNK-004', stationId: 'STN004', fuelType: 'Kerosene',         capacity:  8000, currentLevel:  7900, isActive: true, pumps: [{ pumpId: 'P08', name: 'Pump 4A' }] },
+    { tankId: 'TNK-002', stationId: 'STN004', fuelType: 'Petrol 95 Octane', capacity: 10000, currentLevel: 7200, isActive: true, pumps: [{ pumpId: 'P04', name: 'Pump 2A' }, { pumpId: 'P05', name: 'Pump 2B' }] },
+    { tankId: 'TNK-003', stationId: 'STN004', fuelType: 'Diesel (Auto)', capacity: 25000, currentLevel: 17000, isActive: true, pumps: [{ pumpId: 'P06', name: 'Pump 3A' }, { pumpId: 'P07', name: 'Pump 3B' }] },
+    { tankId: 'TNK-004', stationId: 'STN004', fuelType: 'Kerosene', capacity: 8000, currentLevel: 7900, isActive: true, pumps: [{ pumpId: 'P08', name: 'Pump 4A' }] },
   ],
   STN005: [
-    { tankId: 'TNK-001', stationId: 'STN005', fuelType: 'Petrol 92 Octane', capacity: 15000, currentLevel:  4350, isActive: true, pumps: [{ pumpId: 'P01', name: 'Pump 1A' }] },
-    { tankId: 'TNK-002', stationId: 'STN005', fuelType: 'Petrol 95 Octane', capacity: 10000, currentLevel:  1500, isActive: true, pumps: [{ pumpId: 'P04', name: 'Pump 2A' }] },
-    { tankId: 'TNK-003', stationId: 'STN005', fuelType: 'Diesel (Auto)',    capacity: 25000, currentLevel: 11000, isActive: true, pumps: [{ pumpId: 'P06', name: 'Pump 3A' }] },
-    { tankId: 'TNK-004', stationId: 'STN005', fuelType: 'Kerosene',         capacity:  8000, currentLevel:  3200, isActive: true, pumps: [{ pumpId: 'P08', name: 'Pump 4A' }] },
+    { tankId: 'TNK-001', stationId: 'STN005', fuelType: 'Petrol 92 Octane', capacity: 15000, currentLevel: 4350, isActive: true, pumps: [{ pumpId: 'P01', name: 'Pump 1A' }] },
+    { tankId: 'TNK-002', stationId: 'STN005', fuelType: 'Petrol 95 Octane', capacity: 10000, currentLevel: 1500, isActive: true, pumps: [{ pumpId: 'P04', name: 'Pump 2A' }] },
+    { tankId: 'TNK-003', stationId: 'STN005', fuelType: 'Diesel (Auto)', capacity: 25000, currentLevel: 11000, isActive: true, pumps: [{ pumpId: 'P06', name: 'Pump 3A' }] },
+    { tankId: 'TNK-004', stationId: 'STN005', fuelType: 'Kerosene', capacity: 8000, currentLevel: 3200, isActive: true, pumps: [{ pumpId: 'P08', name: 'Pump 4A' }] },
   ],
   STN006: [
     { tankId: 'TNK-001', stationId: 'STN006', fuelType: 'Petrol 92 Octane', capacity: 15000, currentLevel: 12150, isActive: true, pumps: [{ pumpId: 'P01', name: 'Pump 1A' }, { pumpId: 'P02', name: 'Pump 1B' }, { pumpId: 'P03', name: 'Pump 1C' }] },
-    { tankId: 'TNK-002', stationId: 'STN006', fuelType: 'Petrol 95 Octane', capacity: 10000, currentLevel:  8800, isActive: true, pumps: [{ pumpId: 'P04', name: 'Pump 2A' }, { pumpId: 'P05', name: 'Pump 2B' }] },
-    { tankId: 'TNK-003', stationId: 'STN006', fuelType: 'Diesel (Auto)',    capacity: 25000, currentLevel: 19750, isActive: true, pumps: [{ pumpId: 'P06', name: 'Pump 3A' }, { pumpId: 'P07', name: 'Pump 3B' }] },
-    { tankId: 'TNK-004', stationId: 'STN006', fuelType: 'Kerosene',         capacity:  8000, currentLevel:  6400, isActive: true, pumps: [{ pumpId: 'P08', name: 'Pump 4A' }] },
+    { tankId: 'TNK-002', stationId: 'STN006', fuelType: 'Petrol 95 Octane', capacity: 10000, currentLevel: 8800, isActive: true, pumps: [{ pumpId: 'P04', name: 'Pump 2A' }, { pumpId: 'P05', name: 'Pump 2B' }] },
+    { tankId: 'TNK-003', stationId: 'STN006', fuelType: 'Diesel (Auto)', capacity: 25000, currentLevel: 19750, isActive: true, pumps: [{ pumpId: 'P06', name: 'Pump 3A' }, { pumpId: 'P07', name: 'Pump 3B' }] },
+    { tankId: 'TNK-004', stationId: 'STN006', fuelType: 'Kerosene', capacity: 8000, currentLevel: 6400, isActive: true, pumps: [{ pumpId: 'P08', name: 'Pump 4A' }] },
   ],
 };
 
 // ── Average daily demand (L/day) by stationId + fuelType ────────────────────
 const MOCK_DEMAND: Record<string, number> = {
-  'STN001_Diesel (Auto)':      950,
-  'STN001_Petrol 92 Octane':   750,
-  'STN001_Petrol 95 Octane':   400,
-  'STN001_Kerosene':            80,
-  'STN002_Diesel (Auto)':      860,
-  'STN002_Petrol 92 Octane':   680,
-  'STN002_Petrol 95 Octane':   330,
-  'STN002_Kerosene':            60,
-  'STN003_Diesel (Auto)':     1100,
-  'STN003_Petrol 92 Octane':   620,
-  'STN003_Petrol 95 Octane':   310,
-  'STN003_Kerosene':            75,
-  'STN004_Diesel (Auto)':     1200,
-  'STN004_Petrol 92 Octane':   820,
-  'STN004_Petrol 95 Octane':   480,
-  'STN004_Kerosene':            90,
-  'STN005_Diesel (Auto)':      790,
-  'STN005_Petrol 92 Octane':   540,
-  'STN005_Petrol 95 Octane':   280,
-  'STN005_Kerosene':            55,
-  'STN006_Diesel (Auto)':     1350,
-  'STN006_Petrol 92 Octane':   910,
-  'STN006_Petrol 95 Octane':   550,
-  'STN006_Kerosene':           100,
+  'STN001_Diesel (Auto)': 950,
+  'STN001_Petrol 92 Octane': 750,
+  'STN001_Petrol 95 Octane': 400,
+  'STN001_Kerosene': 80,
+  'STN002_Diesel (Auto)': 860,
+  'STN002_Petrol 92 Octane': 680,
+  'STN002_Petrol 95 Octane': 330,
+  'STN002_Kerosene': 60,
+  'STN003_Diesel (Auto)': 1100,
+  'STN003_Petrol 92 Octane': 620,
+  'STN003_Petrol 95 Octane': 310,
+  'STN003_Kerosene': 75,
+  'STN004_Diesel (Auto)': 1200,
+  'STN004_Petrol 92 Octane': 820,
+  'STN004_Petrol 95 Octane': 480,
+  'STN004_Kerosene': 90,
+  'STN005_Diesel (Auto)': 790,
+  'STN005_Petrol 92 Octane': 540,
+  'STN005_Petrol 95 Octane': 280,
+  'STN005_Kerosene': 55,
+  'STN006_Diesel (Auto)': 1350,
+  'STN006_Petrol 92 Octane': 910,
+  'STN006_Petrol 95 Octane': 550,
+  'STN006_Kerosene': 100,
 };
 
 // ── Current inventory (litres) by stationId + fuelType ─────────────────────
 const MOCK_INVENTORY: Record<string, { level: number; capacity: number }> = {
-  'STN001_Diesel (Auto)':      { level:  4200, capacity: 25000 },
-  'STN001_Petrol 92 Octane':   { level:  9500, capacity: 15000 },
-  'STN001_Petrol 95 Octane':   { level:  3100, capacity: 10000 },
-  'STN001_Kerosene':           { level:  7400, capacity:  8000 },
-  'STN002_Diesel (Auto)':      { level:  2100, capacity: 25000 },
-  'STN002_Petrol 92 Octane':   { level:  1800, capacity: 15000 },
-  'STN002_Petrol 95 Octane':   { level:   900, capacity: 10000 },
-  'STN002_Kerosene':           { level:  6200, capacity:  8000 },
-  'STN003_Diesel (Auto)':      { level: 13800, capacity: 25000 },
-  'STN003_Petrol 92 Octane':   { level:  4200, capacity: 15000 },
-  'STN003_Petrol 95 Octane':   { level:  2800, capacity: 10000 },
-  'STN003_Kerosene':           { level:  5800, capacity:  8000 },
-  'STN004_Diesel (Auto)':      { level: 17000, capacity: 25000 },
-  'STN004_Petrol 92 Octane':   { level: 10800, capacity: 15000 },
-  'STN004_Petrol 95 Octane':   { level:  7200, capacity: 10000 },
-  'STN004_Kerosene':           { level:  7900, capacity:  8000 },
-  'STN005_Diesel (Auto)':      { level: 11000, capacity: 25000 },
-  'STN005_Petrol 92 Octane':   { level:  4350, capacity: 15000 },
-  'STN005_Petrol 95 Octane':   { level:  1500, capacity: 10000 },
-  'STN005_Kerosene':           { level:  3200, capacity:  8000 },
-  'STN006_Diesel (Auto)':      { level: 19750, capacity: 25000 },
-  'STN006_Petrol 92 Octane':   { level: 12150, capacity: 15000 },
-  'STN006_Petrol 95 Octane':   { level:  8800, capacity: 10000 },
-  'STN006_Kerosene':           { level:  6400, capacity:  8000 },
+  'STN001_Diesel (Auto)': { level: 4200, capacity: 25000 },
+  'STN001_Petrol 92 Octane': { level: 9500, capacity: 15000 },
+  'STN001_Petrol 95 Octane': { level: 3100, capacity: 10000 },
+  'STN001_Kerosene': { level: 7400, capacity: 8000 },
+  'STN002_Diesel (Auto)': { level: 2100, capacity: 25000 },
+  'STN002_Petrol 92 Octane': { level: 1800, capacity: 15000 },
+  'STN002_Petrol 95 Octane': { level: 900, capacity: 10000 },
+  'STN002_Kerosene': { level: 6200, capacity: 8000 },
+  'STN003_Diesel (Auto)': { level: 13800, capacity: 25000 },
+  'STN003_Petrol 92 Octane': { level: 4200, capacity: 15000 },
+  'STN003_Petrol 95 Octane': { level: 2800, capacity: 10000 },
+  'STN003_Kerosene': { level: 5800, capacity: 8000 },
+  'STN004_Diesel (Auto)': { level: 17000, capacity: 25000 },
+  'STN004_Petrol 92 Octane': { level: 10800, capacity: 15000 },
+  'STN004_Petrol 95 Octane': { level: 7200, capacity: 10000 },
+  'STN004_Kerosene': { level: 7900, capacity: 8000 },
+  'STN005_Diesel (Auto)': { level: 11000, capacity: 25000 },
+  'STN005_Petrol 92 Octane': { level: 4350, capacity: 15000 },
+  'STN005_Petrol 95 Octane': { level: 1500, capacity: 10000 },
+  'STN005_Kerosene': { level: 3200, capacity: 8000 },
+  'STN006_Diesel (Auto)': { level: 19750, capacity: 25000 },
+  'STN006_Petrol 92 Octane': { level: 12150, capacity: 15000 },
+  'STN006_Petrol 95 Octane': { level: 8800, capacity: 10000 },
+  'STN006_Kerosene': { level: 6400, capacity: 8000 },
 };
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -137,24 +137,24 @@ const saveRequestsToStorage = (reqs: RefuelRequest[]) =>
   localStorage.setItem('lioc_refuel_requests', JSON.stringify(reqs));
 
 const STATUS_BADGE: Record<string, string> = {
-  DRAFT:     'bg-slate-500/15 text-slate-400 border-slate-500/25',
+  DRAFT: 'bg-slate-500/15 text-slate-400 border-slate-500/25',
   SUBMITTED: 'bg-blue-500/15 text-blue-400 border-blue-500/25',
-  APPROVED:  'bg-violet-500/15 text-violet-400 border-violet-500/25',
+  APPROVED: 'bg-violet-500/15 text-violet-400 border-violet-500/25',
   SCHEDULED: 'bg-amber-500/15 text-amber-400 border-amber-500/25',
   DELIVERED: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/25',
-  REJECTED:  'bg-red-500/15 text-red-400 border-red-500/25',
+  REJECTED: 'bg-red-500/15 text-red-400 border-red-500/25',
 };
 
 const STATION_STATUS_STYLE: Record<string, string> = {
-  NORMAL:   'bg-emerald-500/15 text-emerald-400 border-emerald-500/25',
-  LOW:      'bg-amber-500/15 text-amber-400 border-amber-500/25',
+  NORMAL: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/25',
+  LOW: 'bg-amber-500/15 text-amber-400 border-amber-500/25',
   CRITICAL: 'bg-red-500/15 text-red-400 border-red-500/25 animate-pulse',
 };
 
 // Petrol % / Diesel % macro numbers for station picker cards
 const STATION_LEVELS: Record<string, { petrol: number; diesel: number }> = {
   STN001: { petrol: 63, diesel: 17 },
-  STN002: { petrol: 18, diesel:  8 },
+  STN002: { petrol: 18, diesel: 8 },
   STN003: { petrol: 28, diesel: 55 },
   STN004: { petrol: 72, diesel: 68 },
   STN005: { petrol: 29, diesel: 44 },
@@ -189,6 +189,7 @@ export default function RegionalDashboard() {
   const [activeTab, setActiveTab] = useState<'map' | 'approvals' | 'analytics' | 'station'>('map');
   const [requests, setRequests] = useState<RefuelRequest[]>([]);
   const [selectedStationId, setSelectedStationId] = useState<string | null>(null);
+  const [approvalModal, setApprovalModal] = useState<{ requestId: string; requestedQuantity: number; approvedQty: number } | null>(null);
 
   useEffect(() => { setRequests(loadRequestsFromStorage()); }, []);
 
@@ -198,25 +199,25 @@ export default function RegionalDashboard() {
     saveRequestsToStorage(updated);
   };
 
-  const handleApprove   = (id: string, qty: number) => updateRequestStatus(id, { status: 'APPROVED', approvedQuantity: qty });
-  const handleReject    = (id: string)               => updateRequestStatus(id, { status: 'REJECTED' });
-  const handleSchedule  = (id: string) => {
+  const handleApprove = (id: string, qty: number) => updateRequestStatus(id, { status: 'APPROVED', approvedQuantity: qty });
+  const handleReject = (id: string) => updateRequestStatus(id, { status: 'REJECTED' });
+  const handleSchedule = (id: string) => {
     const d = new Date(); d.setDate(d.getDate() + 1); d.setHours(9, 0, 0, 0);
     updateRequestStatus(id, { status: 'SCHEDULED', scheduledDeliveryTime: d.toISOString() });
   };
-  const handleDeliver   = (id: string, qty: number) => updateRequestStatus(id, { status: 'DELIVERED', deliveredQuantity: qty, deliveryTime: new Date().toISOString() });
+  const handleDeliver = (id: string, qty: number) => updateRequestStatus(id, { status: 'DELIVERED', deliveredQuantity: qty, deliveryTime: new Date().toISOString() });
 
   const TABS = [
-    { key: 'map'      as const, label: 'Network Map',    Icon: MapIcon                    },
-    { key: 'approvals'as const, label: 'Order Approvals',Icon: ClipboardDocumentCheckIcon },
-    { key: 'analytics'as const, label: 'Executive KPIs', Icon: PresentationChartBarIcon   },
-    { key: 'station'  as const, label: 'Station Monitor',Icon: BuildingStorefrontIcon      },
+    { key: 'map' as const, label: 'Network Map', Icon: MapIcon },
+    { key: 'approvals' as const, label: 'Order Approvals', Icon: ClipboardDocumentCheckIcon },
+    { key: 'analytics' as const, label: 'Executive KPIs', Icon: PresentationChartBarIcon },
+    { key: 'station' as const, label: 'Station Monitor', Icon: BuildingStorefrontIcon },
   ];
 
   const activeTickets = requests.filter(r => ['SUBMITTED', 'APPROVED', 'SCHEDULED'].includes(r.status));
 
   // Colours for tab active state vary by theme
-  const tabActiveBg     = theme === 'dark'
+  const tabActiveBg = theme === 'dark'
     ? 'linear-gradient(135deg, #7C3AED, #2563EB)'
     : 'linear-gradient(135deg, #F97316, #2563EB)';
   const tabActiveShadow = theme === 'dark'
@@ -281,9 +282,8 @@ export default function RegionalDashboard() {
                     if (key === 'approvals') setRequests(loadRequestsFromStorage());
                     if (key !== 'station') setSelectedStationId(null);
                   }}
-                  className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-semibold transition-all cursor-pointer ${
-                    activeTab === key ? 'text-white' : ''
-                  }`}
+                  className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-semibold transition-all cursor-pointer ${activeTab === key ? 'text-white' : ''
+                    }`}
                   style={{
                     color: activeTab === key ? '#fff' : 'var(--text-muted)',
                     ...(activeTab === key ? { background: tabActiveBg, boxShadow: tabActiveShadow } : {}),
@@ -355,10 +355,10 @@ export default function RegionalDashboard() {
 
               <div className="grid grid-cols-2 lg:grid-cols-1 gap-4">
                 {[
-                  { label: 'Managed Stations',    value: MOCK_STATIONS.length.toString(),                                                sub: 'Western Province',                      color: theme === 'dark' ? '#7C3AED' : '#F97316' },
-                  { label: 'Critical Fuel Stock',  value: MOCK_STATIONS.filter(s => s.status === 'CRITICAL').length.toString(),          sub: 'Require immediate replenishment',       color: '#EF4444' },
-                  { label: 'Active Refuel Orders', value: activeTickets.length.toString(),                                               sub: 'Submitted / Approved / Scheduled',      color: '#F59E0B' },
-                  { label: 'Stations at Low Level',value: MOCK_STATIONS.filter(s => s.status === 'LOW').length.toString(),               sub: 'Below 30% threshold',                   color: '#2563EB' },
+                  { label: 'Managed Stations', value: MOCK_STATIONS.length.toString(), sub: 'Western Province', color: theme === 'dark' ? '#7C3AED' : '#F97316' },
+                  { label: 'Critical Fuel Stock', value: MOCK_STATIONS.filter(s => s.status === 'CRITICAL').length.toString(), sub: 'Require immediate replenishment', color: '#EF4444' },
+                  { label: 'Active Refuel Orders', value: activeTickets.length.toString(), sub: 'Submitted / Approved / Scheduled', color: '#F59E0B' },
+                  { label: 'Stations at Low Level', value: MOCK_STATIONS.filter(s => s.status === 'LOW').length.toString(), sub: 'Below 30% threshold', color: '#2563EB' },
                 ].map(kpi => (
                   <div
                     key={kpi.label}
@@ -562,7 +562,8 @@ export default function RegionalDashboard() {
                               {req.status === 'SUBMITTED' && (
                                 <>
                                   <button
-                                    onClick={() => handleApprove(req.requestId, req.requestedQuantity)}
+
+                                    onClick={() => setApprovalModal({ requestId: req.requestId, requestedQuantity: req.requestedQuantity, approvedQty: req.requestedQuantity })}
                                     className="text-[11px] font-bold px-3 py-1.5 rounded-lg text-white cursor-pointer transition-all"
                                     style={{ background: tabActiveBg, boxShadow: '0 2px 8px rgba(124,58,237,0.3)' }}
                                   >Approve</button>
@@ -621,10 +622,10 @@ export default function RegionalDashboard() {
 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
               {[
-                { label: 'Network Fuel Inventory', value: '612,500 L', delta: '+3.8%',          deltaColor: 'text-emerald-400', color: theme === 'dark' ? '#7C3AED' : '#F97316' },
-                { label: 'Fuel Turnover Rate',     value: '81.2%',     delta: '+2.1% WoW',      deltaColor: 'text-emerald-400', color: '#2563EB'  },
-                { label: 'Network Stockouts (30d)',  value: '3',         delta: 'incidents',       deltaColor: 'text-red-400',     color: '#EF4444'  },
-                { label: 'Delivery Efficiency',    value: '96.7%',     delta: 'actual vs approved',deltaColor: 'text-slate-500', color: '#F59E0B'  },
+                { label: 'Network Fuel Inventory', value: '612,500 L', delta: '+3.8%', deltaColor: 'text-emerald-400', color: theme === 'dark' ? '#7C3AED' : '#F97316' },
+                { label: 'Fuel Turnover Rate', value: '81.2%', delta: '+2.1% WoW', deltaColor: 'text-emerald-400', color: '#2563EB' },
+                { label: 'Network Stockouts (30d)', value: '3', delta: 'incidents', deltaColor: 'text-red-400', color: '#EF4444' },
+                { label: 'Delivery Efficiency', value: '96.7%', delta: 'actual vs approved', deltaColor: 'text-slate-500', color: '#F59E0B' },
               ].map(kpi => (
                 <div
                   key={kpi.label}
@@ -651,12 +652,12 @@ export default function RegionalDashboard() {
                 </div>
                 <div className="space-y-3">
                   {[
-                    { metric: 'Daily Consumption (Network Avg)',    value: '14,800 L / day', bar: 74, color: theme === 'dark' ? '#7C3AED' : '#F97316' },
-                    { metric: 'Weekend Demand Surge',              value: '+11.4%',          bar: 85, color: '#2563EB' },
-                    { metric: 'Monthly Total Dispatch (June 2026)', value: '432,600 L',       bar: 62, color: '#F59E0B' },
-                    { metric: 'Average Delivery Lead Time',         value: '18.5 hours',      bar: 30, color: '#EF4444' },
-                    { metric: 'On-Time Delivery Rate',             value: '93.2%',           bar: 93, color: '#10B981' },
-                    { metric: 'Volumetric Discrepancy Rate',        value: '0.8% avg',        bar: 8,  color: '#A78BFA' },
+                    { metric: 'Daily Consumption (Network Avg)', value: '14,800 L / day', bar: 74, color: theme === 'dark' ? '#7C3AED' : '#F97316' },
+                    { metric: 'Weekend Demand Surge', value: '+11.4%', bar: 85, color: '#2563EB' },
+                    { metric: 'Monthly Total Dispatch (June 2026)', value: '432,600 L', bar: 62, color: '#F59E0B' },
+                    { metric: 'Average Delivery Lead Time', value: '18.5 hours', bar: 30, color: '#EF4444' },
+                    { metric: 'On-Time Delivery Rate', value: '93.2%', bar: 93, color: '#10B981' },
+                    { metric: 'Volumetric Discrepancy Rate', value: '0.8% avg', bar: 8, color: '#A78BFA' },
                   ].map(row => (
                     <div key={row.metric} className="flex items-center gap-4">
                       <div className="flex-1 min-w-0">
@@ -679,12 +680,12 @@ export default function RegionalDashboard() {
                 </h2>
                 <div className="space-y-3">
                   {[
-                    { event: 'USER LOGIN: Dilantha Fernando',  detail: 'IP: 10.0.1.22 · Just now',           color: 'text-violet-400' },
-                    { event: 'DELIVERY CONFIRMED: REQ-2401',  detail: '18,000 L Diesel · STN001 · 2h ago',   color: 'text-emerald-400' },
-                    { event: 'AUTO REQUEST: STN002 Diesel',   detail: 'Critical threshold triggered · 3h ago', color: 'text-red-400'    },
-                    { event: 'APPROVED: REQ-2403',            detail: '8,000 L Petrol 95 · STN001 · 4h ago',  color: 'text-violet-400' },
-                    { event: 'SCHEDULED: REQ-2402',           detail: 'ETA 08-Jun 09:00 · STN001',            color: 'text-amber-400'  },
-                    { event: 'USER LOGIN: Kamal Perera',      detail: 'IP: 10.0.1.45 · 6h ago',              color: 'text-blue-400'   },
+                    { event: 'USER LOGIN: Dilantha Fernando', detail: 'IP: 10.0.1.22 · Just now', color: 'text-violet-400' },
+                    { event: 'DELIVERY CONFIRMED: REQ-2401', detail: '18,000 L Diesel · STN001 · 2h ago', color: 'text-emerald-400' },
+                    { event: 'AUTO REQUEST: STN002 Diesel', detail: 'Critical threshold triggered · 3h ago', color: 'text-red-400' },
+                    { event: 'APPROVED: REQ-2403', detail: '8,000 L Petrol 95 · STN001 · 4h ago', color: 'text-violet-400' },
+                    { event: 'SCHEDULED: REQ-2402', detail: 'ETA 08-Jun 09:00 · STN001', color: 'text-amber-400' },
+                    { event: 'USER LOGIN: Kamal Perera', detail: 'IP: 10.0.1.45 · 6h ago', color: 'text-blue-400' },
                   ].map((entry, i) => (
                     <div key={i} className="flex gap-2.5 pb-3 last:pb-0" style={{ borderBottom: i < 5 ? '1px solid var(--border-table-row)' : 'none' }}>
                       <div>
@@ -749,8 +750,8 @@ export default function RegionalDashboard() {
                           {[
                             { label: 'Petrol 92', pct: Math.round((STATION_TANKS[stn.stationId][0].currentLevel / STATION_TANKS[stn.stationId][0].capacity) * 100), color: theme === 'dark' ? '#7C3AED' : '#F97316' },
                             { label: 'Petrol 95', pct: Math.round((STATION_TANKS[stn.stationId][1].currentLevel / STATION_TANKS[stn.stationId][1].capacity) * 100), color: '#2563EB' },
-                            { label: 'Diesel',    pct: Math.round((STATION_TANKS[stn.stationId][2].currentLevel / STATION_TANKS[stn.stationId][2].capacity) * 100), color: '#F59E0B' },
-                            { label: 'Kerosene',  pct: Math.round((STATION_TANKS[stn.stationId][3].currentLevel / STATION_TANKS[stn.stationId][3].capacity) * 100), color: '#A78BFA' },
+                            { label: 'Diesel', pct: Math.round((STATION_TANKS[stn.stationId][2].currentLevel / STATION_TANKS[stn.stationId][2].capacity) * 100), color: '#F59E0B' },
+                            { label: 'Kerosene', pct: Math.round((STATION_TANKS[stn.stationId][3].currentLevel / STATION_TANKS[stn.stationId][3].capacity) * 100), color: '#A78BFA' },
                           ].map(bar => (
                             <div key={bar.label}>
                               <div className="flex justify-between text-[11px] mb-1">
@@ -823,10 +824,10 @@ export default function RegionalDashboard() {
                 {/* Summary KPIs for selected station */}
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                   {[
-                    { label: 'Total Capacity',  value: `${(STATION_TANKS[selectedStationId]?.reduce((s, t) => s + t.capacity, 0) ?? 0).toLocaleString()} L`,      color: theme === 'dark' ? '#7C3AED' : '#F97316' },
-                    { label: 'Current Volume',  value: `${(STATION_TANKS[selectedStationId]?.reduce((s, t) => s + t.currentLevel, 0) ?? 0).toLocaleString()} L`,  color: '#2563EB' },
-                    { label: 'Critical Tanks',  value: (STATION_TANKS[selectedStationId]?.filter(t => (t.currentLevel / t.capacity) < 0.15).length ?? 0).toString(), color: '#EF4444' },
-                    { label: 'Active Pumps',    value: (STATION_TANKS[selectedStationId]?.flatMap(t => t.pumps).length ?? 0).toString(),                           color: '#10B981' },
+                    { label: 'Total Capacity', value: `${(STATION_TANKS[selectedStationId]?.reduce((s, t) => s + t.capacity, 0) ?? 0).toLocaleString()} L`, color: theme === 'dark' ? '#7C3AED' : '#F97316' },
+                    { label: 'Current Volume', value: `${(STATION_TANKS[selectedStationId]?.reduce((s, t) => s + t.currentLevel, 0) ?? 0).toLocaleString()} L`, color: '#2563EB' },
+                    { label: 'Critical Tanks', value: (STATION_TANKS[selectedStationId]?.filter(t => (t.currentLevel / t.capacity) < 0.15).length ?? 0).toString(), color: '#EF4444' },
+                    { label: 'Active Pumps', value: (STATION_TANKS[selectedStationId]?.flatMap(t => t.pumps).length ?? 0).toString(), color: '#10B981' },
                   ].map(kpi => (
                     <div
                       key={kpi.label}
@@ -845,6 +846,89 @@ export default function RegionalDashboard() {
         )}
 
       </main>
+
+      {/* Approval Volume Modal */}
+      {approvalModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          style={{ background: 'rgba(6,3,15,0.75)', backdropFilter: 'blur(6px)' }}
+          onClick={() => setApprovalModal(null)}
+        >
+          <div
+            className="glass-card rounded-2xl border border-violet-500/25 p-8 w-full max-w-sm shadow-2xl"
+            style={{ boxShadow: '0 8px 40px rgba(124,58,237,0.25)' }}
+            onClick={e => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h3 className="text-lg font-black text-white" style={{ fontFamily: 'Space Grotesk' }}>Approve Request</h3>
+                <p className="text-slate-500 text-xs mt-0.5 font-mono">{approvalModal.requestId}</p>
+              </div>
+              <button
+                onClick={() => setApprovalModal(null)}
+                className="text-slate-500 hover:text-slate-300 transition-colors cursor-pointer text-xl leading-none"
+                aria-label="Close"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Volume input */}
+            <label className="block mb-2 text-xs font-bold uppercase tracking-widest text-slate-400">
+              Approved Volume (Litres)
+            </label>
+            <div className="relative mb-1">
+              <input
+                id="approval-volume-input"
+                type="number"
+                min={1}
+                value={approvalModal.approvedQty}
+                onChange={e => {
+                  const rawValue = e.target.value;
+                  if (rawValue === "") {
+                    setApprovalModal(prev => prev ? { ...prev, approvedQty: null } : null);
+                  } else {
+                    setApprovalModal(prev => prev ? { ...prev, approvedQty: Number(rawValue) } : null);
+                  }
+                }}
+                className="w-full rounded-xl px-4 py-3 text-white font-mono text-lg font-bold bg-slate-950/80 border border-violet-500/30 focus:outline-none focus:ring-2 focus:ring-violet-500/50 transition-all"
+                style={{ background: 'rgba(15,10,30,0.85)' }}
+              />
+            </div>
+            {approvalModal.approvedQty !== approvalModal.requestedQuantity && (
+              <p className="text-amber-400 text-xs font-mono mb-4 mt-1">
+                Requested: {approvalModal.requestedQuantity.toLocaleString()} L
+                {approvalModal.approvedQty < approvalModal.requestedQuantity ? ' · Partial approval' : ' · Exceeds request'}
+              </p>
+            )}
+            {approvalModal.approvedQty === approvalModal.requestedQuantity && (
+              <p className="text-slate-600 text-xs font-mono mb-4 mt-1">Full requested volume</p>
+            )}
+
+            {/* Actions */}
+            <div className="flex gap-3 mt-6">
+              <button
+                onClick={() => setApprovalModal(null)}
+                className="flex-1 py-2.5 rounded-xl text-sm font-bold text-slate-400 bg-slate-800/60 border border-slate-700/40 hover:bg-slate-700/60 cursor-pointer transition-all"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  handleApprove(approvalModal.requestId, approvalModal.approvedQty);
+                  setApprovalModal(null);
+                }}
+                disabled={!approvalModal.approvedQty || approvalModal.approvedQty <= 0}
+                className="flex-1 py-2.5 rounded-xl text-sm font-bold text-white cursor-pointer transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                style={{ background: 'linear-gradient(135deg, #7C3AED, #2563EB)', boxShadow: '0 2px 12px rgba(124,58,237,0.4)' }}
+              >
+                Confirm Approval
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
