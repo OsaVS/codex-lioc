@@ -185,7 +185,12 @@ export default function StationDashboard() {
 
   const handleManualRequest = (status: 'DRAFT' | 'SUBMITTED') => {
     const newReq: RefuelRequest = {
-      requestId: `REQ-${Math.floor(2500 + Math.random() * 500)}`,
+      requestId: `REQ-${(() => {
+        const lastId = parseInt(localStorage.getItem('lastRequestId') ?? '2500', 10);
+        const nextId = lastId >= 2999 ? 2500 : lastId + 1;
+        localStorage.setItem('lastRequestId', String(nextId));
+        return nextId;
+      })()}`,
       stationId: 'STN001',
       stationName: STATION_INFO.name,
       requestedDate: new Date().toISOString(),
@@ -214,7 +219,7 @@ export default function StationDashboard() {
   const timeStr = now.toLocaleTimeString('en-LK', { hour: '2-digit', minute: '2-digit' });
 
   // Tab active gradient varies by theme
-  const tabActiveBg     = theme === 'dark'
+  const tabActiveBg = theme === 'dark'
     ? 'linear-gradient(135deg, #7C3AED, #2563EB)'
     : 'linear-gradient(135deg, #F97316, #2563EB)';
   const tabActiveShadow = theme === 'dark'
