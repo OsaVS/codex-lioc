@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../context/useAuthStore';
-import { LockClosedIcon, UserIcon, ShieldCheckIcon } from '@heroicons/react/24/outline';
+import { useThemeStore } from '../context/useThemeStore';
+import { LockClosedIcon, UserIcon, ShieldCheckIcon, SunIcon, MoonIcon } from '@heroicons/react/24/outline';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -10,6 +11,7 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const login = useAuthStore((state) => state.login);
+  const { theme, toggleTheme } = useThemeStore();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,10 +39,21 @@ export default function Login() {
 
   return (
     <div className="mesh-gradient-bg min-h-screen flex items-center justify-center py-12 px-4 relative overflow-hidden">
-      {/* Purple ambient blobs */}
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-violet-700/15 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-blue-700/15 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-violet-600/8 rounded-full blur-[80px] pointer-events-none" />
+      {/* Ambient blobs */}
+      <div className="absolute top-0 left-0 w-[500px] h-[500px] rounded-full blur-[120px] pointer-events-none" style={{ background: theme === 'dark' ? 'rgba(109,40,217,0.15)' : 'rgba(249,115,22,0.12)' }} />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full blur-[100px] pointer-events-none" style={{ background: theme === 'dark' ? 'rgba(37,99,235,0.15)' : 'rgba(37,99,235,0.12)' }} />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full blur-[80px] pointer-events-none opacity-50" style={{ background: theme === 'dark' ? 'rgba(124,58,237,0.08)' : 'rgba(249,115,22,0.06)' }} />
+
+      {/* Theme toggle - top right */}
+      <button
+        onClick={toggleTheme}
+        className="theme-toggle absolute top-6 right-6 z-20"
+        title="Toggle theme"
+      >
+        {theme === 'dark'
+          ? <SunIcon style={{ width: '16px', height: '16px' }} />
+          : <MoonIcon style={{ width: '16px', height: '16px' }} />}
+      </button>
 
       <div className="max-w-md w-full z-10">
         {/* Brand Header */}
@@ -48,9 +61,18 @@ export default function Login() {
           {/* LIOC Logo Mark */}
           <div className="inline-flex items-center justify-center mb-6">
             <div className="relative">
-              {/* Outer glow ring */}
-              <div className="absolute inset-0 bg-violet-600/20 rounded-2xl blur-xl" />
-              <div className="relative flex items-center justify-center bg-gradient-to-br from-violet-700 to-blue-700 px-6 py-3.5 rounded-2xl shadow-[0_8px_32px_rgba(124,58,237,0.4)]">
+              <div className="absolute inset-0 rounded-2xl blur-xl opacity-30" style={{ background: theme === 'dark' ? '#7C3AED' : '#F97316' }} />
+              <div
+                className="relative flex items-center justify-center px-6 py-3.5 rounded-2xl"
+                style={{
+                  background: theme === 'dark'
+                    ? 'linear-gradient(135deg, #7C3AED, #2563EB)'
+                    : 'linear-gradient(135deg, #F97316, #2563EB)',
+                  boxShadow: theme === 'dark'
+                    ? '0 8px 32px rgba(124,58,237,0.4)'
+                    : '0 8px 32px rgba(249,115,22,0.35)',
+                }}
+              >
                 {/* Flame icon SVG */}
                 {/* <svg width="28" height="28" viewBox="0 0 24 24" fill="none" className="text-white">
                   <path d="M12 2C12 2 7 7 7 12a5 5 0 0010 0c0-3-2-5-2-5s-.5 2.5-2 3.5C13.5 9 14 6 12 2z" fill="rgba(255,255,255,0.9)" />
@@ -68,10 +90,10 @@ export default function Login() {
             </div>
           </div>
 
-          <h1 className="text-4xl font-black text-white tracking-tight leading-tight" style={{ fontFamily: 'Space Grotesk' }}>
+          <h1 className="text-4xl font-black tracking-tight leading-tight" style={{ fontFamily: 'Space Grotesk', color: 'var(--text-heading)' }}>
             IMS Portal
           </h1>
-          <p className="mt-2 text-violet-300/70 text-base font-medium">
+          <p className="mt-2 text-base font-medium" style={{ color: 'var(--text-secondary)' }}>
             Inventory & Distribution Management System
           </p>
           {/* <p className="mt-1 text-slate-500 text-xs font-mono tracking-wider">
@@ -80,20 +102,25 @@ export default function Login() {
         </div>
 
         {/* Login Card */}
-        <div className="glass-card p-8 rounded-3xl shadow-[0_0_60px_rgba(124,58,237,0.2)] border border-violet-500/20">
+        <div className="glass-card p-8 rounded-3xl" style={{ border: '1px solid var(--border-card)', boxShadow: theme === 'dark' ? '0 0 60px rgba(124,58,237,0.2)' : '0 0 40px rgba(249,115,22,0.15)' }}>
           <form onSubmit={handleLogin} className="space-y-5">
             <div>
-              <label className="block text-xs font-bold text-violet-300/80 uppercase tracking-widest mb-2">
+              <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--text-secondary)' }}>
                 Username
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <UserIcon className="h-4.5 w-4.5 text-violet-400/60" style={{ width: '18px', height: '18px' }} />
+                  <UserIcon style={{ width: '18px', height: '18px', color: 'var(--text-muted)' }} />
                 </div>
                 <input
                   type="text"
                   required
-                  className="block w-full pl-11 pr-4 py-3.5 bg-slate-950/60 border border-violet-500/20 rounded-xl text-white placeholder-slate-600 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/40 focus:border-violet-500/60 transition-all"
+                  className="block w-full pl-11 pr-4 py-3.5 rounded-xl text-sm focus:outline-none transition-all"
+                  style={{
+                    background: 'var(--bg-input)',
+                    border: '1px solid var(--border-input)',
+                    color: 'var(--text-primary)',
+                  }}
                   placeholder="Enter your username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
@@ -102,17 +129,22 @@ export default function Login() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-violet-300/80 uppercase tracking-widest mb-2">
+              <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--text-secondary)' }}>
                 Password
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <LockClosedIcon className="h-4.5 w-4.5 text-violet-400/60" style={{ width: '18px', height: '18px' }} />
+                  <LockClosedIcon style={{ width: '18px', height: '18px', color: 'var(--text-muted)' }} />
                 </div>
                 <input
                   type="password"
                   required
-                  className="block w-full pl-11 pr-4 py-3.5 bg-slate-950/60 border border-violet-500/20 rounded-xl text-white placeholder-slate-600 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/40 focus:border-violet-500/60 transition-all"
+                  className="block w-full pl-11 pr-4 py-3.5 rounded-xl text-sm focus:outline-none transition-all"
+                  style={{
+                    background: 'var(--bg-input)',
+                    border: '1px solid var(--border-input)',
+                    color: 'var(--text-primary)',
+                  }}
                   placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -132,8 +164,12 @@ export default function Login() {
               disabled={isLoading}
               className="w-full flex items-center justify-center gap-2.5 py-3.5 px-4 rounded-xl text-sm font-bold text-white transition-all disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer mt-2"
               style={{
-                background: 'linear-gradient(135deg, #7C3AED 0%, #2563EB 100%)',
-                boxShadow: '0 4px 20px rgba(124,58,237,0.4)'
+                background: theme === 'dark'
+                  ? 'linear-gradient(135deg, #7C3AED 0%, #2563EB 100%)'
+                  : 'linear-gradient(135deg, #F97316 0%, #2563EB 100%)',
+                boxShadow: theme === 'dark'
+                  ? '0 4px 20px rgba(124,58,237,0.4)'
+                  : '0 4px 20px rgba(249,115,22,0.35)',
               }}
             >
               {isLoading ? (
@@ -154,24 +190,32 @@ export default function Login() {
           </form>
 
           {/* Credential Hints */}
-          <div className="mt-6 pt-5 border-t border-violet-500/10">
-            <p className="text-center text-xs text-slate-500 font-mono mb-3 uppercase tracking-wider">Demo Credentials</p>
+          <div className="mt-6 pt-5" style={{ borderTop: '1px solid var(--border-card)' }}>
+            <p className="text-center text-xs font-mono mb-3 uppercase tracking-wider" style={{ color: 'var(--text-faint)' }}>Demo Credentials</p>
             <div className="grid grid-cols-2 gap-2.5">
               <button
                 type="button"
                 onClick={() => { setUsername('manager'); setPassword('admin'); }}
-                className="flex flex-col items-start p-3 rounded-xl border border-violet-500/15 bg-violet-500/5 hover:bg-violet-500/12 hover:border-violet-500/30 transition-all cursor-pointer text-left"
+                className="flex flex-col items-start p-3 rounded-xl transition-all cursor-pointer text-left"
+                style={{
+                  border: `1px solid ${theme === 'dark' ? 'rgba(124,58,237,0.15)' : 'rgba(249,115,22,0.20)'}`,
+                  background: theme === 'dark' ? 'rgba(124,58,237,0.05)' : 'rgba(249,115,22,0.05)',
+                }}
               >
-                <span className="text-[10px] font-bold text-violet-400/70 uppercase tracking-wider">Station Mgr</span>
-                <span className="text-xs text-slate-300 font-mono mt-0.5">manager / admin</span>
+                <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: theme === 'dark' ? 'rgba(167,139,250,0.7)' : '#C2410C' }}>Station Mgr</span>
+                <span className="text-xs font-mono mt-0.5" style={{ color: 'var(--text-secondary)' }}>manager / admin</span>
               </button>
               <button
                 type="button"
                 onClick={() => { setUsername('region'); setPassword('admin'); }}
-                className="flex flex-col items-start p-3 rounded-xl border border-blue-500/15 bg-blue-500/5 hover:bg-blue-500/12 hover:border-blue-500/30 transition-all cursor-pointer text-left"
+                className="flex flex-col items-start p-3 rounded-xl transition-all cursor-pointer text-left"
+                style={{
+                  border: '1px solid rgba(37,99,235,0.15)',
+                  background: 'rgba(37,99,235,0.05)',
+                }}
               >
                 <span className="text-[10px] font-bold text-blue-400/70 uppercase tracking-wider">Regional Mgr</span>
-                <span className="text-xs text-slate-300 font-mono mt-0.5">region / admin</span>
+                <span className="text-xs font-mono mt-0.5" style={{ color: 'var(--text-secondary)' }}>region / admin</span>
               </button>
             </div>
           </div>

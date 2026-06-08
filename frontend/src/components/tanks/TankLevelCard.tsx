@@ -51,7 +51,6 @@ export default function TankLevelCard({ tank }: Props) {
   }
 
   const availableCapacity = tank.capacity - tank.currentLevel;
-  const fuelTypeAbbr = tank.fuelType.replace('Octane', 'OCT').replace('(Auto)', '').trim();
 
   return (
     <div className={`glass-card glass-card-hover rounded-2xl relative overflow-hidden flex flex-col ${glowClass}`}>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuthStore } from '../context/useAuthStore';
+import { useThemeStore } from '../context/useThemeStore';
 import TankLevelCard from '../components/tanks/TankLevelCard';
 import { ManualMeasurementForm, PumpTotalizerForm } from '../components/tanks/ReadingForms';
 import FuelLevelChart from '../components/analytics/FuelLevelChart';
@@ -15,6 +16,8 @@ import {
   BuildingStorefrontIcon,
   UserCircleIcon,
   ClockIcon,
+  SunIcon,
+  MoonIcon,
 } from '@heroicons/react/24/outline';
 
 // ── Persistent storage helpers ───────────────────────────────────────────────
@@ -138,6 +141,7 @@ const STATUS_BADGE: Record<string, string> = {
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function StationDashboard() {
   const logout = useAuthStore(state => state.logout);
+  const { theme, toggleTheme } = useThemeStore();
   const [activeTab, setActiveTab] = useState<'fuel' | 'minimart' | 'replenishment'>('fuel');
   const [tanks, setTanks] = useState<Tank[]>(DEFAULT_TANKS);
   const [products, setProducts] = useState<MinimartProduct[]>(DEFAULT_PRODUCTS);
@@ -220,8 +224,16 @@ export default function StationDashboard() {
   const dateStr = now.toLocaleDateString('en-LK', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
   const timeStr = now.toLocaleTimeString('en-LK', { hour: '2-digit', minute: '2-digit' });
 
+  // Tab active gradient varies by theme
+  const tabActiveBg     = theme === 'dark'
+    ? 'linear-gradient(135deg, #7C3AED, #2563EB)'
+    : 'linear-gradient(135deg, #F97316, #2563EB)';
+  const tabActiveShadow = theme === 'dark'
+    ? '0 2px 12px rgba(124,58,237,0.4)'
+    : '0 2px 12px rgba(249,115,22,0.35)';
+
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: '#06030F', color: '#f1f5f9', fontFamily: 'Inter, system-ui, sans-serif' }}>
+    <div className="min-h-screen flex flex-col" style={{ background: 'var(--bg-page)', color: 'var(--text-primary)', fontFamily: 'Inter, system-ui, sans-serif' }}>
 
       {/* ── Sticky Navbar ─────────────────────────────────────────────── */}
       <nav className="glass-navbar sticky top-0 z-50">
@@ -230,38 +242,57 @@ export default function StationDashboard() {
 
             {/* Brand */}
             <div className="flex items-center gap-3 shrink-0">
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-violet-500/25" style={{ background: 'linear-gradient(135deg, rgba(124,58,237,0.2), rgba(37,99,235,0.15))' }}>
+              <div
+                className="flex items-center gap-2 px-3 py-1.5 rounded-xl"
+                style={{
+                  background: theme === 'dark'
+                    ? 'linear-gradient(135deg, rgba(124,58,237,0.2), rgba(37,99,235,0.15))'
+                    : 'linear-gradient(135deg, rgba(249,115,22,0.15), rgba(37,99,235,0.10))',
+                  border: '1px solid var(--border-card)',
+                }}
+              >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 2C12 2 7 7 7 12a5 5 0 0010 0c0-3-2-5-2-5s-.5 2.5-2 3.5C13.5 9 14 6 12 2z" fill="rgba(167,139,250,0.9)" />
+                  <path d="M12 2C12 2 7 7 7 12a5 5 0 0010 0c0-3-2-5-2-5s-.5 2.5-2 3.5C13.5 9 14 6 12 2z"
+                    fill={theme === 'dark' ? 'rgba(167,139,250,0.9)' : 'rgba(249,115,22,0.9)'} />
                 </svg>
-                <span className="font-black text-white text-sm tracking-widest uppercase" style={{ fontFamily: 'Space Grotesk' }}>Lanka IOC</span>
+                <span className="font-black text-sm tracking-widest uppercase" style={{ fontFamily: 'Space Grotesk', color: 'var(--text-heading)' }}>Lanka IOC</span>
               </div>
               <div className="hidden sm:block">
-                <span className="text-slate-100 font-bold text-base" style={{ fontFamily: 'Space Grotesk' }}>IMS</span>
-                <span className="ml-2 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-violet-500/15 text-violet-300 border border-violet-500/20">Station Manager</span>
+                <span className="font-bold text-base" style={{ fontFamily: 'Space Grotesk', color: 'var(--text-heading)' }}>IMS</span>
+                <span
+                  className="ml-2 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider"
+                  style={{
+                    background: theme === 'dark' ? 'rgba(124,58,237,0.15)' : 'rgba(249,115,22,0.12)',
+                    color: theme === 'dark' ? '#A78BFA' : '#C2410C',
+                    border: `1px solid ${theme === 'dark' ? 'rgba(124,58,237,0.20)' : 'rgba(249,115,22,0.25)'}`,
+                  }}
+                >Station Manager</span>
               </div>
             </div>
 
             {/* Tabs */}
-            <div className="flex items-center gap-1 bg-slate-950/70 p-1 rounded-xl border border-violet-500/12">
+            <div
+              className="flex items-center gap-1 p-1 rounded-xl"
+              style={{ background: 'var(--bg-tab-strip)', border: '1px solid var(--border-tab)' }}
+            >
               {TABS.map(({ key, label, Icon }) => (
                 <button
                   key={key}
                   onClick={() => setActiveTab(key)}
-                  className={`relative flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold transition-all cursor-pointer ${activeTab === key
-                    ? 'text-white shadow-md'
-                    : 'text-slate-500 hover:text-slate-300'
-                    }`}
-                  style={activeTab === key ? { background: 'linear-gradient(135deg, #7C3AED, #2563EB)', boxShadow: '0 2px 12px rgba(124,58,237,0.4)' } : {}}
+                  className={`relative flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold transition-all cursor-pointer`}
+                  style={{
+                    color: activeTab === key ? '#fff' : 'var(--text-muted)',
+                    ...(activeTab === key ? { background: tabActiveBg, boxShadow: tabActiveShadow } : {}),
+                  }}
                 >
                   <Icon style={{ width: '15px', height: '15px' }} />
                   {label}
                   {/* Alert dot */}
                   {key === 'minimart' && hasMinimartAlert && activeTab !== 'minimart' && (
-                    <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-amber-500 border-2 border-slate-950" />
+                    <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-amber-500" style={{ border: '2px solid var(--bg-page)' }} />
                   )}
                   {key === 'fuel' && hasCriticalTank && activeTab !== 'fuel' && (
-                    <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-red-500 border-2 border-slate-950 animate-pulse" />
+                    <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" style={{ border: '2px solid var(--bg-page)' }} />
                   )}
                 </button>
               ))}
@@ -270,22 +301,32 @@ export default function StationDashboard() {
             {/* Right side */}
             <div className="flex items-center gap-3 shrink-0">
               <div className="hidden md:flex flex-col items-end">
-                <div className="flex items-center gap-1.5 text-xs text-slate-400 font-mono">
+                <div className="flex items-center gap-1.5 text-xs font-mono" style={{ color: 'var(--text-secondary)' }}>
                   <BuildingStorefrontIcon style={{ width: '12px', height: '12px' }} />
                   {STATION_INFO.name}
                 </div>
-                <div className="flex items-center gap-1.5 text-[10px] text-slate-600 font-mono mt-0.5">
+                <div className="flex items-center gap-1.5 text-[10px] font-mono mt-0.5" style={{ color: 'var(--text-faint)' }}>
                   <ClockIcon style={{ width: '10px', height: '10px' }} />
                   {timeStr}  ·  {STATION_INFO.shift}
                 </div>
               </div>
-              <div className="flex items-center gap-1.5 text-sm text-slate-300">
-                <UserCircleIcon style={{ width: '20px', height: '20px', color: '#a78bfa' }} />
+              <div className="flex items-center gap-1.5 text-sm" style={{ color: 'var(--text-secondary)' }}>
+                <UserCircleIcon style={{ width: '20px', height: '20px', color: theme === 'dark' ? '#a78bfa' : '#F97316' }} />
                 <span className="hidden sm:inline font-medium">{STATION_INFO.manager}</span>
               </div>
+              {/* Theme toggle */}
+              <button onClick={toggleTheme} className="theme-toggle" title="Toggle theme">
+                {theme === 'dark'
+                  ? <SunIcon style={{ width: '16px', height: '16px' }} />
+                  : <MoonIcon style={{ width: '16px', height: '16px' }} />}
+              </button>
               <button
                 onClick={logout}
-                className="text-xs border border-violet-500/20 text-violet-300 hover:bg-violet-500/10 px-3 py-1.5 rounded-lg font-semibold transition-all cursor-pointer"
+                className="text-xs px-3 py-1.5 rounded-lg font-semibold transition-all cursor-pointer"
+                style={{
+                  border: `1px solid ${theme === 'dark' ? 'rgba(124,58,237,0.20)' : 'rgba(249,115,22,0.25)'}`,
+                  color: theme === 'dark' ? '#A78BFA' : '#C2410C',
+                }}
               >
                 Logout
               </button>
@@ -298,38 +339,38 @@ export default function StationDashboard() {
       <main className="flex-1 max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-7 w-full space-y-6">
 
         {/* Station Header Banner */}
-        <div className="glass-card rounded-2xl px-6 py-4 border border-violet-500/15 flex flex-col sm:flex-row sm:items-center gap-3 justify-between">
+        <div className="glass-card rounded-2xl px-6 py-4 flex flex-col sm:flex-row sm:items-center gap-3 justify-between" style={{ border: '1px solid var(--border-card)' }}>
           <div>
             <div className="flex items-center gap-2 mb-0.5">
               <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.7)] animate-pulse" />
               <span className="text-xs text-emerald-400 font-bold uppercase tracking-wider">Live · All systems operational</span>
             </div>
-            <h1 className="text-2xl font-black text-white" style={{ fontFamily: 'Space Grotesk' }}>
+            <h1 className="text-2xl font-black" style={{ fontFamily: 'Space Grotesk', color: 'var(--text-heading)' }}>
               {STATION_INFO.name}
             </h1>
-            <p className="text-slate-500 text-sm mt-0.5">
-              Station {STATION_INFO.id} · {STATION_INFO.region} · Managed by <span className="text-slate-400 font-semibold">{STATION_INFO.manager}</span>
+            <p className="text-sm mt-0.5" style={{ color: 'var(--text-muted)' }}>
+              Station {STATION_INFO.id} · {STATION_INFO.region} · Managed by <span className="font-semibold" style={{ color: 'var(--text-secondary)' }}>{STATION_INFO.manager}</span>
             </p>
           </div>
           <div className="flex gap-4 flex-wrap">
             <div className="text-center">
-              <p className="text-2xl font-black font-mono text-violet-400">{tanks.length}</p>
-              <p className="text-[11px] text-slate-500 uppercase tracking-wider font-bold">Tanks</p>
+              <p className="text-2xl font-black font-mono" style={{ color: theme === 'dark' ? '#A78BFA' : '#F97316' }}>{tanks.length}</p>
+              <p className="text-[11px] uppercase tracking-wider font-bold" style={{ color: 'var(--text-muted)' }}>Tanks</p>
             </div>
-            <div className="w-px bg-violet-500/15 hidden sm:block" />
+            <div className="w-px hidden sm:block" style={{ background: 'var(--border-card)' }} />
             <div className="text-center">
               <p className="text-2xl font-black font-mono text-blue-400">{MOCK_PUMPS.length}</p>
-              <p className="text-[11px] text-slate-500 uppercase tracking-wider font-bold">Pumps</p>
+              <p className="text-[11px] uppercase tracking-wider font-bold" style={{ color: 'var(--text-muted)' }}>Pumps</p>
             </div>
-            <div className="w-px bg-violet-500/15 hidden sm:block" />
+            <div className="w-px hidden sm:block" style={{ background: 'var(--border-card)' }} />
             <div className="text-center">
               <p className="text-2xl font-black font-mono text-amber-400">{requests.filter(r => ['SUBMITTED', 'APPROVED', 'SCHEDULED'].includes(r.status)).length}</p>
-              <p className="text-[11px] text-slate-500 uppercase tracking-wider font-bold">Active Orders</p>
+              <p className="text-[11px] uppercase tracking-wider font-bold" style={{ color: 'var(--text-muted)' }}>Active Orders</p>
             </div>
-            <div className="w-px bg-violet-500/15 hidden sm:block" />
+            <div className="w-px hidden sm:block" style={{ background: 'var(--border-card)' }} />
             <div className="text-center">
-              <p className="text-sm font-bold text-slate-300 font-mono">{dateStr.split(',')[0]}</p>
-              <p className="text-[11px] text-slate-500 font-mono">{dateStr.split(',').slice(1).join(',').trim()}</p>
+              <p className="text-sm font-bold font-mono" style={{ color: 'var(--text-secondary)' }}>{dateStr.split(',')[0]}</p>
+              <p className="text-[11px] font-mono" style={{ color: 'var(--text-muted)' }}>{dateStr.split(',').slice(1).join(',').trim()}</p>
             </div>
           </div>
         </div>
@@ -543,7 +584,7 @@ export default function StationDashboard() {
                     Replenishment Workflow
                   </h2>
                   <p className="text-slate-500 text-sm mt-0.5">
-                    Workflow: Draft → Submitted → Approved → Scheduled → Delivered
+                    Draft → Submitted → Approved → Scheduled → Delivered
                   </p>
                 </div>
                 <div className="overflow-x-auto">
