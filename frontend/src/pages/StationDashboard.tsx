@@ -99,16 +99,16 @@ const DEFAULT_TANKS: Tank[] = [
 
 // ── Default Minimart inventory (10 products) ─────────────────────────────────
 const DEFAULT_PRODUCTS: MinimartProduct[] = [
-  { id: 'MM-001', name: 'Castrol GTX 10W-40 1L',     category: 'ENGINE_OIL',   currentStock: 48,  reorderLevel: 12, supplier: 'Castrol Lanka (Pvt) Ltd',  expiryDate: '2027-12-15', batchNumber: 'CAS-EO-B928', price: 2450 },
-  { id: 'MM-002', name: 'Mobil Super 2000 X1 4L',    category: 'ENGINE_OIL',   currentStock: 22,  reorderLevel: 8,  supplier: 'ExxonMobil Lanka',         expiryDate: '2028-03-10', batchNumber: 'MOB-EO-T112', price: 8900 },
-  { id: 'MM-003', name: 'Shell Helix HX5 15W-40',    category: 'LUBRICANT',    currentStock: 6,   reorderLevel: 15, supplier: 'Shell Lanka (Pvt) Ltd',    expiryDate: '2027-06-30', batchNumber: 'SHL-LB-F220', price: 3200 }, // Low!
-  { id: 'MM-004', name: 'Prestone Super Coolant 1L', category: 'COOLANT',      currentStock: 4,   reorderLevel: 10, supplier: 'Prestone Distribtors SL',  expiryDate: '2026-07-20', batchNumber: 'PRE-CO-A103', price: 1850 }, // Low + near expiry!
-  { id: 'MM-005', name: 'Prestone Brake Fluid DOT4',  category: 'BRAKE_FLUID',  currentStock: 18,  reorderLevel: 6,  supplier: 'Prestone Distribtors SL',  expiryDate: '2026-06-25', batchNumber: 'PRE-BF-F402', price: 1780 }, // Near expiry!
-  { id: 'MM-006', name: 'Bosch Super Wiper 18"',     category: 'ACCESSORIES',  currentStock: 14,  reorderLevel: 5,  supplier: 'Bosch Lanka',              expiryDate: '2030-01-01', batchNumber: 'BSH-WP-G501', price: 1250 },
-  { id: 'MM-007', name: 'Turtle Wax Car Polish 500g', category: 'CAR_CARE',    currentStock: 0,   reorderLevel: 8,  supplier: 'Turtle Wax Sri Lanka',     expiryDate: '2025-11-30', batchNumber: 'TWX-CP-X871', price: 1600 }, // Empty + Expired!
-  { id: 'MM-008', name: 'Meguiar\'s Tyre Dressing',  category: 'CAR_CARE',    currentStock: 25,  reorderLevel: 5,  supplier: 'Meguiar\'s Imports SL',    expiryDate: '2028-05-01', batchNumber: 'MEG-TD-H309', price: 2100 },
-  { id: 'MM-009', name: 'Michelin Inflator 450ml',   category: 'ACCESSORIES',  currentStock: 9,   reorderLevel: 6,  supplier: 'Michelin Lanka',           expiryDate: '2027-09-15', batchNumber: 'MCH-IF-J220', price: 890  },
-  { id: 'MM-010', name: 'KYB Shock Absorber Grease', category: 'LUBRICANT',    currentStock: 11,  reorderLevel: 4,  supplier: 'KYB Imports SL',           expiryDate: '2029-02-28', batchNumber: 'KYB-GR-K405', price: 950  },
+  { id: 'MM-001', name: 'Castrol GTX 10W-40 1L', category: 'ENGINE_OIL', currentStock: 48, reorderLevel: 12, supplier: 'Castrol Lanka (Pvt) Ltd', expiryDate: '2027-12-15', batchNumber: 'CAS-EO-B928', price: 2450 },
+  { id: 'MM-002', name: 'Mobil Super 2000 X1 4L', category: 'ENGINE_OIL', currentStock: 22, reorderLevel: 8, supplier: 'ExxonMobil Lanka', expiryDate: '2028-03-10', batchNumber: 'MOB-EO-T112', price: 8900 },
+  { id: 'MM-003', name: 'Shell Helix HX5 15W-40', category: 'LUBRICANT', currentStock: 6, reorderLevel: 15, supplier: 'Shell Lanka (Pvt) Ltd', expiryDate: '2027-06-30', batchNumber: 'SHL-LB-F220', price: 3200 }, // Low!
+  { id: 'MM-004', name: 'Prestone Super Coolant 1L', category: 'COOLANT', currentStock: 4, reorderLevel: 10, supplier: 'Prestone Distribtors SL', expiryDate: '2026-07-20', batchNumber: 'PRE-CO-A103', price: 1850 }, // Low + near expiry!
+  { id: 'MM-005', name: 'Prestone Brake Fluid DOT4', category: 'BRAKE_FLUID', currentStock: 18, reorderLevel: 6, supplier: 'Prestone Distribtors SL', expiryDate: '2026-06-25', batchNumber: 'PRE-BF-F402', price: 1780 }, // Near expiry!
+  { id: 'MM-006', name: 'Bosch Super Wiper 18"', category: 'ACCESSORIES', currentStock: 14, reorderLevel: 5, supplier: 'Bosch Lanka', expiryDate: '2030-01-01', batchNumber: 'BSH-WP-G501', price: 1250 },
+  { id: 'MM-007', name: 'Turtle Wax Car Polish 500g', category: 'CAR_CARE', currentStock: 0, reorderLevel: 8, supplier: 'Turtle Wax Sri Lanka', expiryDate: '2025-11-30', batchNumber: 'TWX-CP-X871', price: 1600 }, // Empty + Expired!
+  { id: 'MM-008', name: 'Meguiar\'s Tyre Dressing', category: 'CAR_CARE', currentStock: 25, reorderLevel: 5, supplier: 'Meguiar\'s Imports SL', expiryDate: '2028-05-01', batchNumber: 'MEG-TD-H309', price: 2100 },
+  { id: 'MM-009', name: 'Michelin Inflator 450ml', category: 'ACCESSORIES', currentStock: 9, reorderLevel: 6, supplier: 'Michelin Lanka', expiryDate: '2027-09-15', batchNumber: 'MCH-IF-J220', price: 890 },
+  { id: 'MM-010', name: 'KYB Shock Absorber Grease', category: 'LUBRICANT', currentStock: 11, reorderLevel: 4, supplier: 'KYB Imports SL', expiryDate: '2029-02-28', batchNumber: 'KYB-GR-K405', price: 950 },
 ];
 
 const STATION_INFO = {
@@ -120,26 +120,26 @@ const STATION_INFO = {
 };
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
-const isProductExpired  = (d: string) => new Date(d) < new Date();
-const isNearingExpiry   = (d: string) => {
+const isProductExpired = (d: string) => new Date(d) < new Date();
+const isNearingExpiry = (d: string) => {
   const diff = new Date(d).getTime() - Date.now();
   return diff > 0 && diff < 30 * 24 * 60 * 60 * 1000;
 };
 
 const STATUS_BADGE: Record<string, string> = {
-  DRAFT:     'bg-slate-500/15 text-slate-400 border-slate-500/25',
+  DRAFT: 'bg-slate-500/15 text-slate-400 border-slate-500/25',
   SUBMITTED: 'bg-blue-500/15 text-blue-400 border-blue-500/25',
-  APPROVED:  'bg-violet-500/15 text-violet-400 border-violet-500/25',
+  APPROVED: 'bg-violet-500/15 text-violet-400 border-violet-500/25',
   SCHEDULED: 'bg-amber-500/15 text-amber-400 border-amber-500/25',
   DELIVERED: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/25',
-  REJECTED:  'bg-red-500/15 text-red-400 border-red-500/25',
+  REJECTED: 'bg-red-500/15 text-red-400 border-red-500/25',
 };
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function StationDashboard() {
-  const logout    = useAuthStore(state => state.logout);
+  const logout = useAuthStore(state => state.logout);
   const [activeTab, setActiveTab] = useState<'fuel' | 'minimart' | 'replenishment'>('fuel');
-  const [tanks,    setTanks]    = useState<Tank[]>(DEFAULT_TANKS);
+  const [tanks, setTanks] = useState<Tank[]>(DEFAULT_TANKS);
   const [products, setProducts] = useState<MinimartProduct[]>(DEFAULT_PRODUCTS);
   const [requests, setRequests] = useState<RefuelRequest[]>(loadRequestsFromStorage());
   const [manualFuelType, setManualFuelType] = useState('Petrol 92 Octane');
@@ -152,16 +152,16 @@ export default function StationDashboard() {
     tanks.forEach(t => {
       const threshold = t.fuelType.toLowerCase().includes('petrol') ? 3000 : 4000;
       if (t.currentLevel <= threshold) {
-        const existing = requests.some(r => r.fuelType === t.fuelType && ['DRAFT','SUBMITTED','APPROVED','SCHEDULED'].includes(r.status));
+        const existing = requests.some(r => r.fuelType === t.fuelType && ['DRAFT', 'SUBMITTED', 'APPROVED', 'SCHEDULED'].includes(r.status));
         if (!existing) {
           const autoReq: RefuelRequest = {
-            requestId:         `AUTO-${Math.floor(100 + Math.random() * 900)}`,
-            stationId:         'STN001',
-            stationName:       STATION_INFO.name,
-            requestedDate:     new Date().toISOString(),
-            fuelType:          t.fuelType,
+            requestId: `AUTO-${Math.floor(100 + Math.random() * 900)}`,
+            stationId: 'STN001',
+            stationName: STATION_INFO.name,
+            requestedDate: new Date().toISOString(),
+            fuelType: t.fuelType,
             requestedQuantity: Math.round(t.capacity - t.currentLevel),
-            status:            'SUBMITTED',
+            status: 'SUBMITTED',
           };
           setRequests(prev => [autoReq, ...prev]);
         }
@@ -175,9 +175,9 @@ export default function StationDashboard() {
     setProducts(prev => prev.map(p => {
       if (p.id !== productId) return p;
       let s = p.currentStock;
-      if (type === 'SALE')         s = Math.max(0, s - quantity);
-      else if (type === 'RETURN')  s = s + quantity;
-      else                         s = quantity;
+      if (type === 'SALE') s = Math.max(0, s - quantity);
+      else if (type === 'RETURN') s = s + quantity;
+      else s = quantity;
       return { ...p, currentStock: s };
     }));
 
@@ -192,11 +192,11 @@ export default function StationDashboard() {
 
   const handleManualRequest = (status: 'DRAFT' | 'SUBMITTED') => {
     const newReq: RefuelRequest = {
-      requestId:         `REQ-${Math.floor(2500 + Math.random() * 500)}`,
-      stationId:         'STN001',
-      stationName:       STATION_INFO.name,
-      requestedDate:     new Date().toISOString(),
-      fuelType:          manualFuelType,
+      requestId: `REQ-${Math.floor(2500 + Math.random() * 500)}`,
+      stationId: 'STN001',
+      stationName: STATION_INFO.name,
+      requestedDate: new Date().toISOString(),
+      fuelType: manualFuelType,
       requestedQuantity: manualQuantity,
       status,
     };
@@ -211,9 +211,9 @@ export default function StationDashboard() {
   const hasMinimartAlert = products.some(p => p.currentStock <= p.reorderLevel || isProductExpired(p.expiryDate));
 
   const TABS: { key: 'fuel' | 'minimart' | 'replenishment'; label: string; Icon: React.ElementType }[] = [
-    { key: 'fuel',          label: 'Fuel Control',   Icon: CircleStackIcon },
-    { key: 'minimart',      label: 'Mini Mart',       Icon: ShoppingBagIcon },
-    { key: 'replenishment', label: 'Replenishment',   Icon: ArrowPathIcon   },
+    { key: 'fuel', label: 'Fuel Control', Icon: CircleStackIcon },
+    { key: 'minimart', label: 'Mini Mart', Icon: ShoppingBagIcon },
+    { key: 'replenishment', label: 'Replenishment', Icon: ArrowPathIcon },
   ];
 
   const now = new Date();
@@ -248,11 +248,10 @@ export default function StationDashboard() {
                 <button
                   key={key}
                   onClick={() => setActiveTab(key)}
-                  className={`relative flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold transition-all cursor-pointer ${
-                    activeTab === key
-                      ? 'text-white shadow-md'
-                      : 'text-slate-500 hover:text-slate-300'
-                  }`}
+                  className={`relative flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold transition-all cursor-pointer ${activeTab === key
+                    ? 'text-white shadow-md'
+                    : 'text-slate-500 hover:text-slate-300'
+                    }`}
                   style={activeTab === key ? { background: 'linear-gradient(135deg, #7C3AED, #2563EB)', boxShadow: '0 2px 12px rgba(124,58,237,0.4)' } : {}}
                 >
                   <Icon style={{ width: '15px', height: '15px' }} />
@@ -324,7 +323,7 @@ export default function StationDashboard() {
             </div>
             <div className="w-px bg-violet-500/15 hidden sm:block" />
             <div className="text-center">
-              <p className="text-2xl font-black font-mono text-amber-400">{requests.filter(r => ['SUBMITTED','APPROVED','SCHEDULED'].includes(r.status)).length}</p>
+              <p className="text-2xl font-black font-mono text-amber-400">{requests.filter(r => ['SUBMITTED', 'APPROVED', 'SCHEDULED'].includes(r.status)).length}</p>
               <p className="text-[11px] text-slate-500 uppercase tracking-wider font-bold">Active Orders</p>
             </div>
             <div className="w-px bg-violet-500/15 hidden sm:block" />
@@ -372,7 +371,7 @@ export default function StationDashboard() {
             <div>
               <h2 className="text-xl font-bold text-white mb-4" style={{ fontFamily: 'Space Grotesk' }}>
                 Live Tank Telemetry
-                <span className="ml-3 text-xs font-mono text-slate-500 font-normal">(FR-1.1 Sensor feed · FR-1.2 Manual override)</span>
+                {/* <span className="ml-3 text-xs font-mono text-slate-500 font-normal">(FR-1.1 Sensor feed · FR-1.2 Manual override)</span> */}
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
                 {tanks.map(tank => <TankLevelCard key={tank.tankId} tank={tank} />)}
@@ -405,7 +404,7 @@ export default function StationDashboard() {
                     <h2 className="font-bold text-lg text-white" style={{ fontFamily: 'Space Grotesk' }}>
                       Mini Mart Store Inventory
                     </h2>
-                    <p className="text-slate-500 text-sm mt-0.5">{products.length} products tracked across {new Set(products.map(p=>p.category)).size} categories</p>
+                    <p className="text-slate-500 text-sm mt-0.5">{products.length} products tracked across {new Set(products.map(p => p.category)).size} categories</p>
                   </div>
                   <div className="flex gap-2">
                     <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-red-500/15 text-red-400 border border-red-500/20">
@@ -430,9 +429,9 @@ export default function StationDashboard() {
                     </thead>
                     <tbody>
                       {products.map(prod => {
-                        const expired  = isProductExpired(prod.expiryDate);
-                        const nearExp  = isNearingExpiry(prod.expiryDate);
-                        const empty    = prod.currentStock === 0;
+                        const expired = isProductExpired(prod.expiryDate);
+                        const nearExp = isNearingExpiry(prod.expiryDate);
+                        const empty = prod.currentStock === 0;
                         const lowStock = prod.currentStock > 0 && prod.currentStock <= prod.reorderLevel;
 
                         return (
@@ -458,7 +457,7 @@ export default function StationDashboard() {
                               <div className="flex flex-col items-end gap-1">
                                 <span className="text-white font-black font-mono text-base">{prod.currentStock}</span>
                                 <span className="text-xs text-slate-500">/ {prod.reorderLevel} min</span>
-                                {empty    && <span className="text-[10px] font-bold text-red-400 bg-red-500/10 px-1.5 rounded border border-red-500/20 uppercase">Out of Stock</span>}
+                                {empty && <span className="text-[10px] font-bold text-red-400 bg-red-500/10 px-1.5 rounded border border-red-500/20 uppercase">Out of Stock</span>}
                                 {lowStock && <span className="text-[10px] font-bold text-amber-400 bg-amber-500/10 px-1.5 rounded border border-amber-500/20 uppercase animate-pulse">Low Stock</span>}
                               </div>
                             </td>
@@ -573,7 +572,7 @@ export default function StationDashboard() {
                             <span className="font-bold font-mono text-white">{req.requestedQuantity.toLocaleString()} L</span>
                           </td>
                           <td className="text-right">
-                            {['DRAFT','SUBMITTED'].includes(req.status) ? (
+                            {['DRAFT', 'SUBMITTED'].includes(req.status) ? (
                               <span className="text-slate-600 font-mono">—</span>
                             ) : (
                               <div>

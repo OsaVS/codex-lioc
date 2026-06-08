@@ -152,9 +152,9 @@ export default function RegionalDashboard() {
               <h1 className="text-3xl font-black text-white tracking-tight" style={{ fontFamily: 'Space Grotesk' }}>
                 Regional Network Overview
               </h1>
-              <p className="text-slate-500 text-base mt-1">
+              {/* <p className="text-slate-500 text-base mt-1">
                 Geographic distribution, sensor alerts, and fleet status (FR-4.1)
-              </p>
+              </p> */}
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -266,9 +266,9 @@ export default function RegionalDashboard() {
               <h1 className="text-3xl font-black text-white" style={{ fontFamily: 'Space Grotesk' }}>
                 Replenishment Workflow Board
               </h1>
-              <p className="text-slate-500 text-base mt-1">
+              {/* <p className="text-slate-500 text-base mt-1">
                 Approve, schedule deliveries, and log fulfilment across all stations (FR-3.3 & FR-3.4)
-              </p>
+              </p> */}
             </div>
 
             <div className="glass-card rounded-2xl overflow-hidden border border-violet-500/15">
@@ -401,9 +401,9 @@ export default function RegionalDashboard() {
               <h1 className="text-3xl font-black text-white" style={{ fontFamily: 'Space Grotesk' }}>
                 Executive Dashboard
               </h1>
-              <p className="text-slate-500 text-base mt-1">
+              {/* <p className="text-slate-500 text-base mt-1">
                 Network-wide fuel turnover, stockout indices, and fleet dispatch efficiency (FR-4.3)
-              </p>
+              </p> */}
             </div>
 
             {/* KPI Grid */}
